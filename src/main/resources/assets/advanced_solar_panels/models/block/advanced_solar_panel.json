@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "advanced_solar_panels:blocks/Advanced Solar Side",
+		"down": "advanced_solar_panels:blocks/Advanced Solar Bottom",
+		"up": "advanced_solar_panels:blocks/Advanced Solar Top",
+		"north": "advanced_solar_panels:blocks/Advanced Solar Side",
+		"east": "advanced_solar_panels:blocks/Advanced Solar Side",
+		"south": "advanced_solar_panels:blocks/Advanced Solar Side",
+		"west": "advanced_solar_panels:blocks/Advanced Solar Side"
+	}
+}

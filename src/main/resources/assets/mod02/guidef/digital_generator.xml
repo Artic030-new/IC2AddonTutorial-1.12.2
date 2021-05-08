@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui width="176" height="166">
+    <text y="6" align="center">1111</text>
+
+    <slot name="input" x="50" y="17"/>
+
+	<image x="110" y="30" src="textures/gui/machines/digital_generator_gui"/>
+    <slotgrid name="output" x="113" y="35" rows="1" style="plain"/>
+
+    <slot name="discharge" x="50" y="52"/>
+    <environment name="game">
+    	<slotgrid name="upgrade" x="151" y="25" cols="1"/>
+   	</environment>
+    <energygauge x="55" y="37"/>
+    <gauge name="progress" x="77" y="37" style="progresscrush"/>
+    <playerInventory x="7" y="83"/>
+
+	
+</gui>
