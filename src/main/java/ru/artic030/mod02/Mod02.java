@@ -40,8 +40,9 @@ public class Mod02 {
 	public static final String COMMON_PROXY = "ru.artic030.mod02.proxies.CommonProxy";
 
 	public static final ItemStack platecarbon = IC2Items.getItem("crafting", "carbon_plate");
+	public static final ItemStack iridium = IC2Items.getItem("misc_resource", "iridium_ore");
+
 	private static String ACTIVATED = "activated";
-	private static String DISACTIVATED = "de-activated";
 	
 	private Logger log;
 	
@@ -69,7 +70,5 @@ public class Mod02 {
 	}
 	
 	@EventHandler
-	public void postLoad(FMLPostInitializationEvent ev) {
-		
-	}
+	public void postLoad(FMLPostInitializationEvent ev) {}
 }
