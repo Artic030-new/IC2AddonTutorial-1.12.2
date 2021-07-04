@@ -51,10 +51,10 @@ public class ItemEmeraldDrill extends ItemDrill {
 			ItemStack stack = StackUtil.get(player, hand);
 			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) == 0) {
 				ench.put(Enchantments.FORTUNE, Integer.valueOf(2));
-				IC2.platform.messagePlayer(player, "Режим", "удачи включён");
+				IC2.platform.messagePlayer(player, "Режим удачи включён");
 			} else {
 				ench.clear();
-				IC2.platform.messagePlayer(player, "Режим", "удачи выключен");
+				IC2.platform.messagePlayer(player, "Режим удачи выключен");
 			}
 				EnchantmentHelper.setEnchantments(ench, stack);
 		}
