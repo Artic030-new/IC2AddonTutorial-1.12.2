@@ -65,8 +65,7 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 		else return true;
 	}
 	
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
-	{
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(world.isRemote)
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
@@ -75,22 +74,13 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 		}
 		player.spawnSweepParticles();
 		if(!world.isRemote) {
-			EntitySnowball entitysnowball = new EntitySnowball(world, player);
-			EntitySnowball entitysnowball2 = new EntitySnowball(world, player);
-			EntitySnowball entitysnowball3 = new EntitySnowball(world, player);
-			
-			entitysnowball.shoot(player, player.rotationPitch, player.rotationYaw, 0.2F, 1.5F, 1.0F);
-            entitysnowball2.shoot(player, player.rotationPitch, player.rotationYaw+4, 0.2F, 1.5F, 1.0F);
-            entitysnowball3.shoot(player, player.rotationPitch, player.rotationYaw-8, 0.2F, 1.5F, 1.0F);
-		
-            world.spawnEntity(entitysnowball);
-			world.spawnEntity(entitysnowball2);
-			world.spawnEntity(entitysnowball3);
+			EntitySnowball entitysnowball;
+			for (int i = 0; i < 7; i++) {
+				entitysnowball = new EntitySnowball(world, player);
+				entitysnowball.shoot(player, player.rotationPitch - (float)i, player.rotationYaw + ((float)i * 2), 0.2F, 1.5F, 1.0F + ((float)i / 2));
+				 world.spawnEntity(entitysnowball);
+			}
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);			
 	}
-	
-	
-	
-
 }
