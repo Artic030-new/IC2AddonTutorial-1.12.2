@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import ru.artic030.mod02.Mod02;
 import ru.artic030.mod02.load.ItemLoader;
@@ -69,17 +70,21 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 		ItemStack stack = player.getHeldItem(hand);
 		if(world.isRemote)
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-		if(ElectricItem.manager.getCharge(stack) >= this.preUse) {
-			ElectricItem.manager.discharge(stack, --this.preUse, tier, true, false, false);
-		}
-		player.spawnSweepParticles();
-		if(!world.isRemote) {
-			EntitySnowball entitysnowball;
-			for (int i = 0; i < 7; i++) {
-				entitysnowball = new EntitySnowball(world, player);
-				entitysnowball.shoot(player, player.rotationPitch - (float)i, player.rotationYaw + ((float)i * 2), 0.2F, 1.5F, 1.0F + ((float)i / 2));
-				 world.spawnEntity(entitysnowball);
+		if(ElectricItem.manager.getCharge(stack) >= FreezerCannon.preUse) {
+			ElectricItem.manager.discharge(stack, --FreezerCannon.preUse, tier, true, false, false);
+			player.spawnSweepParticles();
+			if(!world.isRemote) {
+				EntitySnowball entitysnowball;
+				for (int i = 0; i < 7; i++) {
+					entitysnowball = new EntitySnowball(world, player);
+					entitysnowball.shoot(player, player.rotationPitch - (float)i, player.rotationYaw + ((float)i * 2), 0.2F, 1.5F, 1.0F + ((float)i / 2));
+					 world.spawnEntity(entitysnowball);
+				}
 			}
+		} else {
+			player.getCooldownTracker().setCooldown(this, 40);
+			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);	
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);			
 	}

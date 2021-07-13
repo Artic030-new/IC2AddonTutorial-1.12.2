@@ -79,6 +79,7 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 				EntityEnderPearl entitysnowball = new EntityEnderPearl(world, player);
 				entitysnowball.shoot(player, player.rotationPitch, player.rotationYaw, 0.2F, 1.5F, 1.0F);
 				world.spawnEntity(entitysnowball);
+				player.getCooldownTracker().setCooldown(this, 40);
 			}
 		} else {
 			player.getCooldownTracker().setCooldown(this, 40);
