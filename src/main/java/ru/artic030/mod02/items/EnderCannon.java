@@ -18,10 +18,11 @@ import ru.artic030.mod02.utils.IHasModel;
 
 public class EnderCannon extends Item implements IHasModel, IElectricItem {
 	
-	public static int maxCharge = 64000;
-	public static byte tier = 1;
-	public static short TransferLimit = 128;
+	public static int maxCharge = 128000;
+	public static byte tier = 2;
+	public static short TransferLimit = 512;
 	public static short preUse = 1200;
+	public static short enderUse = 8888;
 
 	public EnderCannon(String name) {
 		this.setUnlocalizedName(name);
@@ -57,7 +58,7 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 	}
 	
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return ((double)this.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
+		return ((double)EnderCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
 	}
 	
 	public boolean showDurabilityBar(ItemStack stack, World world, EntityPlayer player) {
@@ -70,15 +71,16 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 		ItemStack stack = player.getHeldItem(hand);
 		if(world.isRemote)
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
-		if(ElectricItem.manager.getCharge(stack) >= this.preUse) {
-			ElectricItem.manager.discharge(stack, --this.preUse, tier, true, false, false);
+		if(ElectricItem.manager.getCharge(stack) >= EnderCannon.enderUse) {
+			ElectricItem.manager.discharge(stack, --EnderCannon.enderUse, tier, true, false, false);
+			player.spawnSweepParticles();
+			if(!world.isRemote) {
+				EntityEnderPearl entitysnowball = new EntityEnderPearl(world, player);
+				entitysnowball.shoot(player, player.rotationPitch, player.rotationYaw, 0.2F, 1.5F, 1.0F);
+				world.spawnEntity(entitysnowball);
+			}
 		}
-		player.spawnSweepParticles();
-		if(!world.isRemote) {
-			EntityEnderPearl entitysnowball = new EntityEnderPearl(world, player);
-			entitysnowball.shoot(player, player.rotationPitch, player.rotationYaw, 0.2F, 1.5F, 1.0F);
-			world.spawnEntity(entitysnowball);
-		}
+		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);			
 	}
 }
