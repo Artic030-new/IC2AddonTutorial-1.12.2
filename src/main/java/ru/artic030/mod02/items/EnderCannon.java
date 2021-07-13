@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import ru.artic030.mod02.Mod02;
 import ru.artic030.mod02.load.ItemLoader;
@@ -79,6 +80,10 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 				entitysnowball.shoot(player, player.rotationPitch, player.rotationYaw, 0.2F, 1.5F, 1.0F);
 				world.spawnEntity(entitysnowball);
 			}
+		} else {
+			player.getCooldownTracker().setCooldown(this, 40);
+			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
 		}
 		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);			
