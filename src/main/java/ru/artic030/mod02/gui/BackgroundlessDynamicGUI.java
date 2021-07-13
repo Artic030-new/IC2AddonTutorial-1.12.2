@@ -1,6 +1,7 @@
 package ru.artic030.mod02.gui;
 
 import ic2.core.ContainerBase;
+import ic2.core.GuiIC2;
 import ic2.core.gui.GuiElement;
 import ic2.core.gui.dynamic.DynamicContainer;
 import ic2.core.gui.dynamic.DynamicGui;
@@ -11,11 +12,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 
 public class BackgroundlessDynamicGUI extends DynamicGui {
-   public static DynamicGui create(IInventory base, EntityPlayer player, GuiNode guiNode) {
+   public static DynamicGui<?> create(IInventory base, EntityPlayer player, GuiNode guiNode) {
       return new BackgroundlessDynamicGUI(player, DynamicContainer.create(base, player, guiNode), guiNode);
    }
 
-   protected BackgroundlessDynamicGUI(EntityPlayer player, ContainerBase container, GuiNode guiNode) {
+   protected BackgroundlessDynamicGUI(EntityPlayer player, ContainerBase<IInventory> container, GuiNode guiNode) {
       super(player, container, guiNode);
    }
 
@@ -23,9 +24,9 @@ public class BackgroundlessDynamicGUI extends DynamicGui {
       mouseX -= this.guiLeft;
       mouseY -= this.guiTop;
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-      Iterator var4 = this.elements.iterator();
+      Iterator<GuiElement> var4 = this.elements.iterator();
       while(var4.hasNext()) {
-         GuiElement element = (GuiElement)var4.next();
+         GuiElement<?> element = (GuiElement<?>)var4.next();
          if (element.isEnabled()) {
             this.drawElement(element, mouseX, mouseY);
          }
@@ -33,7 +34,7 @@ public class BackgroundlessDynamicGUI extends DynamicGui {
 
    }
 
-   protected void drawElement(GuiElement element, int mouseX, int mouseY) {
+   protected void drawElement(GuiElement<?> element, int mouseX, int mouseY) {
       element.drawBackground(mouseX, mouseY);
    }
 
