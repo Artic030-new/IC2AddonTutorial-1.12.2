@@ -82,7 +82,7 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 				}
 			}
 		} else {
-			player.getCooldownTracker().setCooldown(this, 40);
+			player.getCooldownTracker().setCooldown(stack.getItem(), 40);
 			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
 			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);	
 		}
