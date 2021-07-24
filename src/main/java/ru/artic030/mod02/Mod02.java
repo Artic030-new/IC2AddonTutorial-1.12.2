@@ -30,12 +30,12 @@ public class Mod02 {
 @SidedProxy(clientSide = Mod02.CLIENT_PROXY, serverSide = Mod02.COMMON_PROXY)
 	public static CommonProxy proxy;
 
-	@Instance
+	@Instance("mod02")
 	public static Mod02 instance;
 
 	public static final String MODID = "mod02";
 	public static final String NAME = "Mod 02";
-	public static final String VERSION = "1";
+	public static final String VERSION = "beta_0.3.1";
 	public static final String CLIENT_PROXY = "ru.artic030.mod02.proxies.ClientProxy";
 	public static final String COMMON_PROXY = "ru.artic030.mod02.proxies.CommonProxy";
 
@@ -66,7 +66,7 @@ public class Mod02 {
 	public void load(FMLInitializationEvent ev) {
 		Recipies.addCraftingRecipes();
 		Recipies.addMachineRecipe();	
-		log.info("Mod is" + ACTIVATED);
+		log.info("Mod " + Mod02.MODID + " version " + Mod02.VERSION + " is " + ACTIVATED);
 	}
 	
 	@EventHandler
