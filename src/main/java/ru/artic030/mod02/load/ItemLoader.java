@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.Item;
+import ru.artic030.mod02.items.Cesium137;
 import ru.artic030.mod02.items.EnderCannon;
 import ru.artic030.mod02.items.FreezerCannon;
 import ru.artic030.mod02.items.ItemIronTreetap;
@@ -16,4 +17,5 @@ public class ItemLoader {
 		public static final Item ENDER_CANNON = new EnderCannon("ender_cannon");
 		public static final Item IRON_TREETAP = new ItemIronTreetap("iron_treetap");
 		public static final Item STEEL_WRENCH = new ItemSteelWrench("steel_wrench");	
+		public static final Item CESIUM137_CELL = new Cesium137("cesium_137");
 }
