@@ -2,28 +2,37 @@ package ru.artic030.mod02.items;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.List;
 import java.util.Queue;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorComponent;
+import ic2.core.IC2;
 import ic2.core.IC2Potion;
+import ic2.core.init.Localization;
+import ic2.core.item.BaseElectricItem;
 import ic2.core.item.armor.ItemArmorHazmat;
 import ic2.core.item.type.NuclearResourceType;
 import ic2.core.ref.ItemName;
+import ic2.core.util.LogCategory;
 import ic2.core.util.StackUtil;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import ru.artic030.mod02.load.ItemLoader;
 
 public class Cesium137 extends Item implements IReactorComponent {
 	
     private int numberOfCells = 1;
-	private int maxDamage;
+	private int maxDamage = 60000;
 
 	public Cesium137(String name) {
 		this.setUnlocalizedName(name);
@@ -35,6 +44,53 @@ public class Cesium137 extends Item implements IReactorComponent {
 	
 	public int getMetadata(ItemStack stack) {
 	      return this.getCustomDamage(stack) > 0 ? 1 : 0;
+	   }
+	
+	@SideOnly(Side.CLIENT)
+	   public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced) {
+	      super.addInformation(stack, world, tooltip, advanced);
+	      tooltip.add(Localization.translate("ic2.reactoritem.durability") + " " + (this.getMaxCustomDamage(stack) - this.getCustomDamage(stack)) + "/" + this.getMaxCustomDamage(stack));
+	   }
+	public boolean showDurabilityBar(ItemStack stack) {
+	      return true;
+	   }
+
+	   public double getDurabilityForDisplay(ItemStack stack) {
+	      return (double)this.getCustomDamage(stack) / (double)this.getMaxCustomDamage(stack);
+	   }
+
+	   public boolean isDamageable() {
+	      return true;
+	   }
+
+	   public boolean isDamaged(ItemStack stack) {
+	      return this.getCustomDamage(stack) > 0;
+	   }
+
+	   public int getDamage(ItemStack stack) {
+	      return this.getCustomDamage(stack);
+	   }
+
+	
+	   public int getMaxDamage(ItemStack stack) {
+	      return this.getMaxCustomDamage(stack);
+	   }
+
+
+
+	   public void setDamage(ItemStack stack, int damage) {
+	      int prev = this.getCustomDamage(stack);
+	      if (damage != prev && BaseElectricItem.logIncorrectItemDamaging) {
+	         IC2.log.warn(LogCategory.Armor, new Throwable(), "Detected invalid gradual item damage application (%d):", damage - prev);
+	      }
+
+	   }
+
+	  
+
+	   public boolean applyCustomDamage(ItemStack stack, int damage, EntityLivingBase src) {
+	      this.setCustomDamage(stack, this.getCustomDamage(stack) + damage);
+	      return true;
 	   }
 
 	@Override
@@ -105,11 +161,7 @@ public class Cesium137 extends Item implements IReactorComponent {
 		return (x * x + x) / 2;
 	}
 	
-	public boolean applyCustomDamage(ItemStack stack, int damage, EntityLivingBase src) {
-	    setCustomDamage(stack, getCustomDamage(stack) + damage);
-	    return true;
-	}
-	
+
 	public void setCustomDamage(ItemStack stack, int damage) {
 		NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
 	    nbt.setInteger("advDmg", damage);
