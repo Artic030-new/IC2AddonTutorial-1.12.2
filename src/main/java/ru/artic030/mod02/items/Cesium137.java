@@ -6,32 +6,51 @@ import java.util.Queue;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorComponent;
+import ic2.core.IC2Potion;
+import ic2.core.item.armor.ItemArmorHazmat;
 import ic2.core.item.type.NuclearResourceType;
 import ic2.core.ref.ItemName;
 import ic2.core.util.StackUtil;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import ru.artic030.mod02.load.ItemLoader;
 
 public class Cesium137 extends Item implements IReactorComponent {
 	
-    private int numberOfCells;
+    private int numberOfCells = 1;
 	private int maxDamage;
 
 	public Cesium137(String name) {
 		this.setUnlocalizedName(name);
+		this.setMaxDamage(27);
 		this.setRegistryName(name);
 		this.setCreativeTab(CreativeTabs.REDSTONE);
 		ItemLoader.ITEMS.add(this);
 	}
+	
+	public int getMetadata(ItemStack stack) {
+	      return this.getCustomDamage(stack) > 0 ? 1 : 0;
+	   }
 
 	@Override
 	public boolean canBePlacedIn(ItemStack stack, IReactor reactor) {
 		return true;
 	}
+	
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slotIndex, boolean isCurrentItem) {
+	      if (entity instanceof EntityLivingBase) {
+	         EntityLivingBase entityLiving = (EntityLivingBase)entity;
+	         if (!ItemArmorHazmat.hasCompleteHazmat(entityLiving)) {
+	            IC2Potion.radiation.applyTo(entityLiving, 200, 100);
+	         }
+	      }
+
+	   }
 
 	@Override
 	public void processChamber(ItemStack stack, IReactor reactor, int x, int y, boolean heatrun) {
@@ -98,7 +117,11 @@ public class Cesium137 extends Item implements IReactorComponent {
 
 	@Override
 	public boolean acceptUraniumPulse(ItemStack stack, IReactor reactor, ItemStack pulsingStack, int youX, int youY, int pulseX, int pulseY, boolean heatrun) {
-		return true;
+		if (!heatrun) {
+	         reactor.addOutput(1.0F);
+	      }
+
+	      return true;
 	}
 
 	@Override
@@ -123,7 +146,7 @@ public class Cesium137 extends Item implements IReactorComponent {
 
 	@Override
 	public float influenceExplosion(ItemStack stack, IReactor reactor) {
-		return 10000;
+		return (float)(2 * this.numberOfCells);
 	}
 	
 	protected void checkHeatAcceptor(IReactor reactor, int x, int y, Collection<ItemStackCoord> heatAcceptors) {
