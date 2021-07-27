@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -65,7 +66,8 @@ public class Mod02 {
 	@EventHandler
 	public void load(FMLInitializationEvent ev) {
 		Recipies.addCraftingRecipes();
-		Recipies.addMachineRecipe();	
+		Recipies.addMachineRecipe();
+		
 		log.info("Mod " + Mod02.MODID + " version " + Mod02.VERSION + " is " + ACTIVATED);
 	}
 	
