@@ -22,7 +22,7 @@ public class CustomReactorPlating extends Item implements IReactorComponent {
 	@Override
 	public boolean acceptUraniumPulse(ItemStack stack, IReactor reactor, ItemStack pulsingStack, int youX, int youY,
 			int pulseX, int pulseY, boolean heatrun) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
 		return false;
 	}
 
