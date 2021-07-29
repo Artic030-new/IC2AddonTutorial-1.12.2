@@ -13,20 +13,18 @@ public class IngineerBattery extends Item implements IElectricItem{
 
 	@Override
 	public double getMaxCharge(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return 60000;
 	}
 
 	@Override
 	public int getTier(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 2;
 	}
 
 	@Override
 	public double getTransferLimit(ItemStack stack) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 10;
 	}
 
 }
