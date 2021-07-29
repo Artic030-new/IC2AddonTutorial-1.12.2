@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import ru.artic030.mod02.Mod02;
+import ru.artic030.mod02.machines.DigitalGeneratorTE;
 
 public enum MachinesTE implements ITeBlock {
 	
@@ -26,7 +27,7 @@ public enum MachinesTE implements ITeBlock {
 	private static final MachinesTE[] VALUES = values();
 	public static final ResourceLocation LOCATION = new ResourceLocation("mod02", "machines");
 	
-	private MachinesTE(Class teClass, int itemMeta, EnumRarity rarity) {
+	private MachinesTE(Class<DigitalGeneratorTE> teClass, int itemMeta, EnumRarity rarity) {
 		this.teClass = teClass;
 		this.itemMeta = itemMeta;
 		this.rarity = rarity;
