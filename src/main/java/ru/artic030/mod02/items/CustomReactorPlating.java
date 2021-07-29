@@ -4,19 +4,30 @@ import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorComponent;
 import ic2.core.item.reactor.AbstractReactorComponent;
 import ic2.core.ref.ItemName;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import ru.artic030.mod02.load.ItemLoader;
 
 public class CustomReactorPlating extends AbstractReactorComponent {
 	   private final int maxHeatAdd;
 	   private final float effectModifier;
 
-	   public CustomReactorPlating(ItemName name, int maxheatadd, float effectmodifier) {
-	      super(name);
+	   public CustomReactorPlating(String name) {
+	      super((ItemName)null);
+	      this.setUnlocalizedName(name);
+	      this.setRegistryName(name);
 	      this.maxHeatAdd = 10000;
 	      this.effectModifier = 0.33F;
+	      this.setCreativeTab(CreativeTabs.REDSTONE);
+	      ItemLoader.ITEMS.add(this);
 	   }
 
+	   public String locationReplacer() {
+			return "mod02." + super.getUnlocalizedName().substring(4);
+		}
+		
+	   
 	   public void processChamber(ItemStack stack, IReactor reactor, int x, int y, boolean heatrun) {
 	      if (heatrun) {
 	         reactor.setMaxHeat(reactor.getMaxHeat() + this.maxHeatAdd);
