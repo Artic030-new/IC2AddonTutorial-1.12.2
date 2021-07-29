@@ -13,7 +13,7 @@ public class IngeneerBattery extends Item implements IElectricItem {
 
 	private int maxCharge = 60000;
 	private byte tier = 2;
-	private int transfer = 10;
+	private int transfer = 512;
 	
 	public IngeneerBattery(String name) {
 		this.setUnlocalizedName(name);
