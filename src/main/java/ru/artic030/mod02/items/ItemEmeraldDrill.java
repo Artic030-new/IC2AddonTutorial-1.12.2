@@ -46,7 +46,7 @@ public class ItemEmeraldDrill extends ItemDrill {
 	
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		if((!world.isRemote) && (IC2.keyboard.isModeSwitchKeyDown(player))) {	
-			Map<Enchantment, Integer> ench = new IdentityHashMap();
+			Map<Enchantment, Integer> ench = new IdentityHashMap<Enchantment, Integer>();
 			ench.put(Enchantments.FORTUNE, Integer.valueOf(2));
 			ItemStack stack = StackUtil.get(player, hand);
 			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) == 0) {
