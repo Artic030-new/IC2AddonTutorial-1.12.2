@@ -3,6 +3,7 @@ package ru.artic030.mod02.items;
 import ic2.api.item.ICustomDamageItem;
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorComponent;
+import ic2.core.IC2;
 import ic2.core.item.reactor.ItemReactorUranium;
 import ic2.core.item.type.NuclearResourceType;
 import ic2.core.ref.ItemName;
@@ -16,7 +17,7 @@ public class Cesium137 extends ItemReactorUranium implements IReactorComponent, 
 		 super((ItemName)null, 1, 10000);
 		 this.setUnlocalizedName(name); 
 		 this.setRegistryName(name);
-		 this.setCreativeTab(CreativeTabs.REDSTONE);
+		 this.setCreativeTab(IC2.tabIC2);
 		 ItemLoader.ITEMS.add(this);
 	 }
 
