@@ -24,7 +24,7 @@ public class CustomReactorPlating extends Item implements IReactorComponent {
 			int pulseX, int pulseY, boolean heatrun) {
 		// TODO Auto-generated method stu
 		return false;
-	}
+	} 
 
 	@Override
 	public boolean canStoreHeat(ItemStack stack, IReactor reactor, int x, int y) {
