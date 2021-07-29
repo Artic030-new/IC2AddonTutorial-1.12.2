@@ -10,24 +10,20 @@ import net.minecraft.item.ItemStack;
 import ru.artic030.mod02.load.ItemLoader;
 
 public class CustomReactorPlating extends AbstractReactorComponent {
+	
 	   private final int maxHeatAdd;
 	   private final float effectModifier;
-
+	   
 	   public CustomReactorPlating(String name) {
-	      super((ItemName)null);
-	      this.setUnlocalizedName(name);
-	      this.setRegistryName(name);
-	      this.maxHeatAdd = 10000;
-	      this.effectModifier = 0.33F;
-	      this.setCreativeTab(CreativeTabs.REDSTONE);
-	      ItemLoader.ITEMS.add(this);
+		   super((ItemName)null);
+		   this.setUnlocalizedName(name);
+		   this.setRegistryName(name);
+		   this.maxHeatAdd = 10000;
+		   this.effectModifier = 0.33F;
+		   this.setCreativeTab(CreativeTabs.REDSTONE);
+		   ItemLoader.ITEMS.add(this);
 	   }
 
-	   public String locationReplacer() {
-			return "mod02." + super.getUnlocalizedName().substring(4);
-		}
-		
-	   
 	   public void processChamber(ItemStack stack, IReactor reactor, int x, int y, boolean heatrun) {
 	      if (heatrun) {
 	         reactor.setMaxHeat(reactor.getMaxHeat() + this.maxHeatAdd);
@@ -37,6 +33,6 @@ public class CustomReactorPlating extends AbstractReactorComponent {
 	   }
 
 	   public float influenceExplosion(ItemStack stack, IReactor reactor) {
-	      return this.effectModifier >= 1.0F ? 0.0F : this.effectModifier;
+		   return this.effectModifier >= 1.0F ? 0.0F : this.effectModifier;
 	   }
 	}
