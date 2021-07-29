@@ -8,6 +8,7 @@ import ru.artic030.mod02.items.Cesium137;
 import ru.artic030.mod02.items.CustomReactorPlating;
 import ru.artic030.mod02.items.EnderCannon;
 import ru.artic030.mod02.items.FreezerCannon;
+import ru.artic030.mod02.items.IngeneerBattery;
 import ru.artic030.mod02.items.ItemIronTreetap;
 import ru.artic030.mod02.items.ItemSteelWrench;
 
@@ -20,4 +21,6 @@ public class ItemLoader {
 		public static final Item STEEL_WRENCH = new ItemSteelWrench("steel_wrench");	
 		public static final Item CESIUM137_CELL = (Item) new Cesium137("cesium_137");
 		public static final Item CUSTOM_REACTOR_PLATING = (Item) new CustomReactorPlating("custom_contaitment");
+		public static final Item INGENEER_BATTERY = (Item) new IngeneerBattery("ingeneer_battery");
+
 }

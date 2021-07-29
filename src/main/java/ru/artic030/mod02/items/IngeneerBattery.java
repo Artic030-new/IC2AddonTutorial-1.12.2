@@ -9,13 +9,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ru.artic030.mod02.load.ItemLoader;
 
-public class IngineerBattery extends Item implements IElectricItem {
+public class IngeneerBattery extends Item implements IElectricItem {
 
 	private int maxCharge = 60000;
 	private byte tier = 2;
 	private int transfer = 10;
 	
-	public IngineerBattery(String name) {
+	public IngeneerBattery(String name) {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		this.setCreativeTab(IC2.tabIC2);
