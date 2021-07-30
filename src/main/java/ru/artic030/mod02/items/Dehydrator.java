@@ -91,7 +91,6 @@ public class Dehydrator extends ItemElectricTool {
 			if(!isCombatModeOn) {
 				isCombatModeOn = true;
 				this.attackDamage = 12.0F;
-				
 				IC2.platform.messagePlayer(player, "Боевой режим активирован");
 			} else {
 				IC2.platform.messagePlayer(player, "Боевой режим деактивирован");
@@ -100,7 +99,7 @@ public class Dehydrator extends ItemElectricTool {
 				return super.onItemRightClick(world, player, hand);
 			}
 		}
-			return super.onItemRightClick(world, player, hand);
+			return super.onItemRightClick(world, player, hand).newResult(EnumActionResult.FAIL, null);
 }
 
 }
