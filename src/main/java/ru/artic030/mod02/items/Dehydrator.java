@@ -63,9 +63,6 @@ public class Dehydrator extends ItemElectricTool {
 		boolean isClay = state.getBlock() == Blocks.CLAY;
 		boolean isDirt = state.getBlock() == Blocks.DIRT;
 		boolean isRock = state.getBlock() == Blocks.COBBLESTONE;
-		boolean isGrass= state.getBlock() == Blocks.TALLGRASS;
-		boolean isSandrock = state.getBlock() == Blocks.SANDSTONE;
-		boolean isDeadGrass = state.getBlock() == Blocks.DEADBUSH;
 		if(ElectricItem.manager.getCharge(stack) >= this.dehydrationEnergyCost) {
 			if(isClay || isDirt || isRock)
 				world.setBlockState(pos, Blocks.SAND.getDefaultState());
@@ -75,15 +72,15 @@ public class Dehydrator extends ItemElectricTool {
 				world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
 			if(state.getBlock() == Blocks.TALLGRASS)
 				world.setBlockState(pos, Blocks.DEADBUSH.getDefaultState());
-			if(isClay || isDirt || isRock || isGrass || isSandrock || isDeadGrass)
-				ElectricItem.manager.discharge(stack, --this.dehydrationEnergyCost, tier, true, false, false);
+			ElectricItem.manager.discharge(stack, --this.dehydrationEnergyCost, tier, true, false, false);
 			IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorUse.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
 			return EnumActionResult.SUCCESS;
+		} else {
+			IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
+			player.getCooldownTracker().setCooldown(this, 40);
+			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
+				return EnumActionResult.FAIL;
 		}
-		IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
-		player.getCooldownTracker().setCooldown(this, 40);
-		player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
-			return EnumActionResult.FAIL;
 	}
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
@@ -99,7 +96,7 @@ public class Dehydrator extends ItemElectricTool {
 				return super.onItemRightClick(world, player, hand);
 			}
 		}
-			return super.onItemRightClick(world, player, hand).newResult(EnumActionResult.FAIL, null);
+			return super.onItemRightClick(world, player, hand);
 }
 
 }
