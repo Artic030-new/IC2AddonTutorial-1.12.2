@@ -72,9 +72,12 @@ public class Dehydrator extends ItemElectricTool {
 				world.setBlockState(pos, Blocks.COBBLESTONE.getDefaultState());
 			if(state.getBlock() == Blocks.TALLGRASS)
 				world.setBlockState(pos, Blocks.DEADBUSH.getDefaultState());
-			ElectricItem.manager.discharge(stack, --this.dehydrationEnergyCost, tier, true, false, false);
-			IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorUse.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
-			return EnumActionResult.SUCCESS;
+			if(isClay || isDirt || isRock) {
+				ElectricItem.manager.discharge(stack, --this.dehydrationEnergyCost, tier, true, false, false);
+				IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorUse.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
+				return EnumActionResult.SUCCESS;
+			}
+			return EnumActionResult.PASS;
 		} else {
 			IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
 			player.getCooldownTracker().setCooldown(this, 40);
