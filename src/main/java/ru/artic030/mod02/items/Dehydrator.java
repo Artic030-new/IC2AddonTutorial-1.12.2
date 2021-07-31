@@ -87,11 +87,20 @@ public class Dehydrator extends ItemElectricTool {
 	}
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if((!world.isRemote) && (IC2.keyboard.isModeSwitchKeyDown(player))) {	
 			if(!isCombatModeOn) {
-				isCombatModeOn = true;
-				this.attackDamage = 12.0F;
-				IC2.platform.messagePlayer(player, "Боевой режим активирован");
+				if(ElectricItem.manager.getCharge(stack) >= this.dehydrationEnergyCost) {
+					isCombatModeOn = true;
+					this.attackDamage = 12.0F;
+					IC2.platform.messagePlayer(player, "Боевой режим активирован");
+				} else {
+					IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
+					player.getCooldownTracker().setCooldown(this, 40);
+					IC2.platform.messagePlayer(player, "Внимание! Не хватает энергии для осуществления операции.");
+					return super.onItemRightClick(world, player, hand);
+				}
+				
 			} else {
 				IC2.platform.messagePlayer(player, "Боевой режим деактивирован");
 				isCombatModeOn = false;
