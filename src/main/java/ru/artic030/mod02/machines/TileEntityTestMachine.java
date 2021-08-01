@@ -14,6 +14,8 @@ import ic2.api.upgrade.UpgradableProperty;
 import ic2.core.ContainerBase;
 import ic2.core.IC2;
 import ic2.core.IHasGui;
+import ic2.core.audio.AudioSource;
+import ic2.core.audio.PositionSpec;
 import ic2.core.block.comp.Redstone;
 import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.invslot.InvSlotProcessable;
@@ -48,17 +50,15 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	
 	@GuiSynced public int progress;
 	
-	private int lastSoundEvent;
-	
-	public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager recipeSet) {
+	public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
 	      this((byte)2, numberOfOutputs, recipeSet);
 	   }
 
-	   public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager recipeSet) {
+	   public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
 	      this(tier, numberOfOutputs, recipeSet, 1, 15);
 	   }
 
-	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager recipeSet, int idleEU, int activeEU) {
+	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 	      this((byte)2, numberOfOutputs, recipeSet, idleEU, activeEU);
 	   }
 	   
@@ -76,84 +76,7 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 		
 		this.redstone = (Redstone)this.addComponent(new Redstone(this));
 
-	   }
-	
-	
-
-	
-	protected boolean canRun() {
-	        return true;
-	    }
-	
-	protected void updateEntityServer() {
-	      super.updateEntityServer();
-	      boolean needsInvUpdate = false;
-	      boolean canOperate = this.canOperate();
-	      if (this.progress >= this.maxProgress) {
-	         while(true) {
-	            if (this.progress < this.maxProgress || !canOperate) {
-	               needsInvUpdate = true;
-	               break;
-	            }
-
-	            this.operate();
-	            this.progress -= this.maxProgress;
-	            canOperate = this.canOperate();
-	         }
-	      }
-
-	      if (this.canRun()) {
-	         if (canOperate && this.energy.useEnergy((double)this.activeEU)) {
-	            this.progress += 10;
-	            this.updateSound(0);
-	         } else {
-	        	 this.progress = 0;
-	        	 this.updateSound(2);  
-	         }
-	      } else {
-	    	  this.progress = 0;
-	      }
-
-
-	      Iterator<ItemStack> var4 = this.upgradeSlot.iterator();
-
-	      while(var4.hasNext()) {
-	         ItemStack stack = (ItemStack)var4.next();
-	         if (!StackUtil.isEmpty(stack) && stack.getItem() instanceof IUpgradeItem) {
-	            needsInvUpdate |= ((IUpgradeItem)stack.getItem()).onTick(stack, this);
-	         }
-	      }
-
-	      this.setActive(true);
-	      if (needsInvUpdate) {
-	         this.markDirty();
-	      }
-
-	   }
-	
-	public boolean canOperate() {
-        if (this.inputSlot.isEmpty()) {
-            return false;
-        }
-        final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
-        return output != null && this.outputSlot.canAdd((Collection<ItemStack>)output.getOutput());
-    }
-    
-    public void operate() {
-        assert this.canOperate();
-        final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
-        this.processUpgrades((Collection<ItemStack>)output.getOutput());
-        this.outputSlot.add((Collection<ItemStack>)output.getOutput());
-        this.inputSlot.consume((MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)output);
-    }
-    
-    protected void processUpgrades(final Collection<ItemStack> output) {
-        for (final ItemStack stack : this.upgradeSlot) {
-            if (stack != null && stack.getItem() instanceof IUpgradeItem) {
-                ((IUpgradeItem)stack.getItem()).onProcessEnd(stack, (IUpgradableBlock)this, (Collection<ItemStack>)output);
-            }
-        }
-    }
+	}
 	
 	@Override
 	public void readFromNBT(final NBTTagCompound nbt) {
@@ -167,21 +90,77 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
         nbt.setInteger("progress", this.progress);
         return nbt;
     }
-    
+	
     protected void onUnloaded() {
-        super.onUnloaded();
+    	super.onUnloaded();
+    }
+	
+	protected boolean canRun() {
+		return true;
+	}
+	
+	protected void updateEntityServer() {
+		super.updateEntityServer();
+		boolean needsInvUpdate = false;
+	    boolean canOperate = this.canOperate();
+	    if (this.progress >= this.maxProgress) {
+	    	while(true) {
+	    		if (this.progress < this.maxProgress || !canOperate) {
+	    			needsInvUpdate = true;
+	    			break;
+	            }
+	            this.operate();
+	            this.progress -= this.maxProgress;
+	            canOperate = this.canOperate();
+	         }
+	      }
+	      if (this.canRun()) {
+	    	  if (canOperate && this.energy.useEnergy((double)this.activeEU)) {
+	    		  this.progress += 10;
+	    	  } else { 
+	    		  this.progress = 0;
+	    		}
+	      } else {
+	    	  this.progress = 0;
+	      }
+
+	      Iterator<ItemStack> var4 = this.upgradeSlot.iterator();
+	      while(var4.hasNext()) {
+	         ItemStack stack = (ItemStack)var4.next();
+	         if (!StackUtil.isEmpty(stack) && stack.getItem() instanceof IUpgradeItem) {
+	            needsInvUpdate |= ((IUpgradeItem)stack.getItem()).onTick(stack, this);
+	         }
+	      }
+
+	      this.setActive(true);
+	      if (needsInvUpdate) {
+	         this.markDirty();
+	      }
+	   }
+	
+	public boolean canOperate() {
+		if (this.inputSlot.isEmpty()) {
+			return false;
+        }
+        final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
+        return output != null && this.outputSlot.canAdd((Collection<ItemStack>)output.getOutput());
     }
     
-    protected void updateSound(int event) {
-        if (this.lastSoundEvent != event) {
-           ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, this.lastSoundEvent = event, true);
+    public void operate() {
+    	this.canOperate();
+        final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
+        this.processUpgrades((Collection<ItemStack>)output.getOutput());
+        this.outputSlot.add((Collection<ItemStack>)output.getOutput());
+        this.inputSlot.consume((MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)output);
+    }
+    
+    protected void processUpgrades(final Collection<ItemStack> output) {
+        for (final ItemStack stack : this.upgradeSlot) {
+            if (stack != null && stack.getItem() instanceof IUpgradeItem) {
+                ((IUpgradeItem)stack.getItem()).onProcessEnd(stack, (IUpgradableBlock)this, (Collection<ItemStack>)output);
+            }
         }
-
-     }
-
-     protected String getSound() {
-        return null;
-     }
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)
