@@ -2,9 +2,12 @@ package ru.artic030.mod02.machines;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
+import ic2.api.upgrade.IUpgradableBlock;
+import ic2.api.upgrade.UpgradableProperty;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
 import ic2.core.block.TileEntityBlock;
@@ -26,17 +29,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntiyTestMachine extends TileEntityElectricMachine implements IHasGui, IGuiValueProvider {
+public class TileEntiyTestMachine extends TileEntityElectricMachine implements IHasGui, IGuiValueProvider, IUpgradableBlock {
 	
-	private final int idleEU;
-	private final int activeEU;
-	private final int maxProgress;
+	public final int idleEU;
+	public final int activeEU;
+	public final int maxProgress;
 	
 	public final InvSlotProcessable<IRecipeInput, Collection<ItemStack>, ItemStack> inputSlot;
 	
 	public final InvSlotOutput outputSlot;
-	   public final InvSlotUpgrade upgradeSlot;
-	   protected final Redstone redstone;
+	public final InvSlotUpgrade upgradeSlot;
+	
+	public final Redstone redstone;
 	
 	@GuiSynced public int progress;
 	
@@ -48,9 +52,11 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 
 	      this.idleEU = idleEU;
 	      this.activeEU = activeEU;
+	      
 	      this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, recipeSet);
 	      this.outputSlot = new InvSlotOutput(this, "output", numberOfOutputs);
-	      this.upgradeSlot = new InvSlotUpgrade((TileEntityInventory)this, "upgrade", 2);
+	      this.upgradeSlot  = new InvSlotUpgrade(this, "upgrade", 2);
+	    
 	      this.redstone = (Redstone)this.addComponent(new Redstone(this));
 	   /*   this.comparator.setUpdate(() -> {
 	         return this.heat * 15 / 10000;
@@ -69,13 +75,28 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	}
 
 	@Override
-	public void onGuiClosed(EntityPlayer arg0) {
-		
-	}
+	public void onGuiClosed(EntityPlayer arg0) {}
 
 	@Override
 	public double getGuiValue(String arg0) {
 		return (double)(1000 * this.progress / this.maxProgress) / 1000.0D;
+	}
+
+	@Override
+	public double getEnergy() {
+		return 0;
+	}
+
+	@Override
+	public boolean useEnergy(double amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Set<UpgradableProperty> getUpgradableProperties() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
