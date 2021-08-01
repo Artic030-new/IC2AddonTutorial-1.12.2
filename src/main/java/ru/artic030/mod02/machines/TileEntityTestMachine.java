@@ -34,7 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntiyTestMachine extends TileEntityElectricMachine implements IHasGui, IGuiValueProvider, IUpgradableBlock {
+public class TileEntityTestMachine extends TileEntityElectricMachine implements IHasGui, IGuiValueProvider, IUpgradableBlock {
 	
 	protected final int idleEU;
 	protected final int activeEU;
@@ -50,18 +50,18 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	
 	private int lastSoundEvent;
 	
-	public TileEntiyTestMachine(IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
+	public TileEntityTestMachine(IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
 	      this( (byte)2 , recipeSet);
 	   }
 
-	   public TileEntiyTestMachine(byte tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
+	   public TileEntityTestMachine(byte tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
 	      this(tier, recipeSet, 1, 15);
 	   }
 
-	   public TileEntiyTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
+	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 	      this((byte)2, (byte)1, recipeSet, idleEU, activeEU);
 	   }
-	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
+	public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 		super(15000, 1);
 		this.maxProgress = 100000;
 		this.progress = 0;
