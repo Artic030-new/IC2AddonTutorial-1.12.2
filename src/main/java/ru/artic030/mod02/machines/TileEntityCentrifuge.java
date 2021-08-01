@@ -5,7 +5,7 @@ import ic2.api.recipe.Recipes;
 public class TileEntityCentrifuge extends TileEntityTestMachine {
 
 	public TileEntityCentrifuge() {
-		super((byte)1, Recipes.macerator);
+		super(1, Recipes.macerator);
 		
 	}
 	

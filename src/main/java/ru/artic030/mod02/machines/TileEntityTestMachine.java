@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import ic2.api.recipe.IBasicMachineRecipeManager;
 import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.MachineRecipeResult;
@@ -50,34 +51,24 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	
 	@GuiSynced public int progress;
 	
-	public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
-	      this((byte)2, numberOfOutputs, recipeSet);
+	public TileEntityTestMachine(int tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
+	      this(tier, recipeSet, 1, 25);
 	   }
 
-	   public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
-	      this(tier, numberOfOutputs, recipeSet, 1, 15);
-	   }
 
-	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
-	      this((byte)2, numberOfOutputs, recipeSet, idleEU, activeEU);
-	   }
-	   
-	public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
-		super(15000, 1);
+	public TileEntityTestMachine(int tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
+		super(6000, 1);
 		this.maxProgress = 1000;
 		this.progress = 0;
-		
 		this.idleEU = idleEU;
 		this.activeEU = activeEU;
-		
 		this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, recipeSet);
-		this.outputSlot = new InvSlotOutput(this, "output", numberOfOutputs);
+		this.outputSlot = new InvSlotOutput(this, "output", 1);
 		this.upgradeSlot  = new InvSlotUpgrade(this, "upgrade", 2);
-		
 		this.redstone = (Redstone)this.addComponent(new Redstone(this));
-
 	}
 	
+
 	@Override
 	public void readFromNBT(final NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
@@ -97,6 +88,40 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	
 	protected boolean canRun() {
 		return true;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public GuiScreen getGui(EntityPlayer p, boolean arg1) {
+		return DynamicGui.create(this, p, GuiParser.parse(this.teBlock));
+	}
+
+	@Override
+	public ContainerBase<? extends TileEntityElectricMachine> getGuiContainer(EntityPlayer p) {
+		return DynamicContainer.create(this, p, GuiParser.parse(this.teBlock));
+	}
+
+	@Override
+	public void onGuiClosed(EntityPlayer arg0) {}
+
+	@Override
+	public double getGuiValue(String arg0) {
+		return (double)(1000 * this.progress / this.maxProgress) / 1000.0D;
+	}
+
+	@Override
+	public double getEnergy() {
+		return 0;
+	}
+
+	@Override
+	public boolean useEnergy(double amount) {
+		return this.energy.useEnergy(amount);
+	}
+
+	@Override
+	public Set<UpgradableProperty> getUpgradableProperties() {
+	      return EnumSet.of(UpgradableProperty.RedstoneSensitive, UpgradableProperty.ItemConsuming, UpgradableProperty.ItemProducing);
 	}
 	
 	protected void updateEntityServer() {
@@ -131,12 +156,11 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	            needsInvUpdate |= ((IUpgradeItem)stack.getItem()).onTick(stack, this);
 	         }
 	      }
-
 	      this.setActive(true);
 	      if (needsInvUpdate) {
 	         this.markDirty();
 	      }
-	   }
+	}
 	
 	public boolean canOperate() {
 		if (this.inputSlot.isEmpty()) {
@@ -161,39 +185,5 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
             }
         }
     }
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public GuiScreen getGui(EntityPlayer p, boolean arg1) {
-		return DynamicGui.create(this, p, GuiParser.parse(this.teBlock));
-	}
-
-	@Override
-	public ContainerBase<? extends TileEntityElectricMachine> getGuiContainer(EntityPlayer p) {
-		return DynamicContainer.create(this, p, GuiParser.parse(this.teBlock));
-	}
-
-	@Override
-	public void onGuiClosed(EntityPlayer arg0) {}
-
-	@Override
-	public double getGuiValue(String arg0) {
-		return (double)(1000 * this.progress / this.maxProgress) / 1000.0D;
-	}
-
-	@Override
-	public double getEnergy() {
-		return 0;
-	}
-
-	@Override
-	public boolean useEnergy(double amount) {
-		return this.energy.useEnergy(amount);
-	}
-
-	@Override
-	public Set<UpgradableProperty> getUpgradableProperties() {
-	      return EnumSet.of(UpgradableProperty.RedstoneSensitive, UpgradableProperty.ItemConsuming, UpgradableProperty.ItemProducing);
-	}
 
 }
