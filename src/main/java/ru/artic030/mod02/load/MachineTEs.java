@@ -9,24 +9,26 @@ import ic2.core.util.Util;
 import java.util.Set;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import ru.artic030.mod02.Mod02;
 
-public enum AdvancedMachineTEs implements ITeBlock {
-   rotary_macerator(ru.artic030.mod02.machines.TileEntityCentrifuge.class, 0)
-  ;
+public enum MachineTEs implements ITeBlock {
+	
+   electric_centrifuge(ru.artic030.mod02.machines.TileEntityCentrifuge.class, 0);
 
    private final Class<? extends TileEntityBlock> teClass;
    private final int itemMeta;
    private TileEntityBlock dummyTe;
-   public static final ResourceLocation IDENTITY = new ResourceLocation("advanced_machines", "machines");
+   public static final ResourceLocation IDENTITY = new ResourceLocation("mod02", "machines");
 
-   private AdvancedMachineTEs(Class<? extends TileEntityBlock> teClass, int itemMeta) {
+   private MachineTEs(Class<? extends TileEntityBlock> teClass, int itemMeta) {
       this.teClass = teClass;
       this.itemMeta = itemMeta;
-      GameRegistry.registerTileEntity(teClass, "advanced_machines:" + this.getName());
+      GameRegistry.registerTileEntity(teClass, "mod02:" + this.getName());
    }
 
    public boolean hasItem() {
@@ -66,23 +68,23 @@ public enum AdvancedMachineTEs implements ITeBlock {
    }
 
    public DefaultDrop getDefaultDrop() {
-      return DefaultDrop.AdvMachine;
+      return DefaultDrop.Machine;
    }
 
    public boolean allowWrenchRotating() {
       return false;
    }
 
-   public Set getSupportedFacings() {
+   public Set<EnumFacing> getSupportedFacings() {
       return Util.horizontalFacings;
    }
 
    public EnumRarity getRarity() {
-      return EnumRarity.UNCOMMON;
+      return EnumRarity.COMMON;
    }
 
    public Material getMaterial() {
-      return Material.BARRIER;
+      return Material.IRON;
    }
 
    
@@ -94,12 +96,12 @@ public enum AdvancedMachineTEs implements ITeBlock {
   
    public static void buildDummies() {
       ModContainer mc = Loader.instance().activeModContainer();
-      if(mc != null && "advanced_machines".equals(mc.getModId())) {
-         AdvancedMachineTEs[] var1 = values();
+      if(mc != null && Mod02.MODID.equals(mc.getModId())) {
+         MachineTEs[] var1 = values();
          int var2 = var1.length;
 
          for(int var3 = 0; var3 < var2; ++var3) {
-            AdvancedMachineTEs block = var1[var3];
+            MachineTEs block = var1[var3];
             if(block.teClass != null) {
                try {
                   block.dummyTe = (TileEntityBlock)block.teClass.newInstance();

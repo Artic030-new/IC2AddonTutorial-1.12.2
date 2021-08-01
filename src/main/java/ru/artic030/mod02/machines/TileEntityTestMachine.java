@@ -64,7 +64,7 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	   
 	public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 		super(15000, 1);
-		this.maxProgress = 100000;
+		this.maxProgress = 1000;
 		this.progress = 0;
 		
 		this.idleEU = idleEU;
