@@ -29,7 +29,7 @@ public enum MachinesTE implements ITeBlock {
 	private static final MachinesTE[] VALUES = values();
 	public static final ResourceLocation LOCATION = new ResourceLocation("mod02", "machines");
 	
-	private MachinesTE(Class<DigitalGeneratorTE> teClass, int itemMeta, EnumRarity rarity) {
+	private MachinesTE(Class<? extends TileEntityBlock> teClass, int itemMeta, EnumRarity rarity) {
 		this.teClass = teClass;
 		this.itemMeta = itemMeta;
 		this.rarity = rarity;
