@@ -7,6 +7,8 @@ import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
+import ic2.core.block.TileEntityBlock;
+import ic2.core.block.TileEntityInventory;
 import ic2.core.block.comp.Redstone;
 import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.invslot.InvSlotProcessable;
@@ -30,7 +32,7 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	private final int activeEU;
 	private final int maxProgress;
 	
-	public final InvSlotProcessable<IRecipeInput, List<ItemStack>, ItemStack> inputSlot;
+	public final InvSlotProcessable<IRecipeInput, Collection<ItemStack>, ItemStack> inputSlot;
 	
 	public final InvSlotOutput outputSlot;
 	   public final InvSlotUpgrade upgradeSlot;
@@ -39,7 +41,7 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	@GuiSynced public int progress;
 	
 
-	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager recipeSet, int idleEU, int activeEU) {
+	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 	      super(15000, 1);
 	      this.maxProgress = 120000;
 	      this.progress = 0;
@@ -48,7 +50,7 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	      this.activeEU = activeEU;
 	      this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, recipeSet);
 	      this.outputSlot = new InvSlotOutput(this, "output", numberOfOutputs);
-	      this.upgradeSlot = new InvSlotUpgrade(this, "upgrade", 2);
+	      this.upgradeSlot = new InvSlotUpgrade((TileEntityInventory)this, "upgrade", 2);
 	      this.redstone = (Redstone)this.addComponent(new Redstone(this));
 	   /*   this.comparator.setUpdate(() -> {
 	         return this.heat * 15 / 10000;
