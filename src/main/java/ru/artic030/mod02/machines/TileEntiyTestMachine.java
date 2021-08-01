@@ -1,7 +1,7 @@
 package ru.artic030.mod02.machines;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.EnumSet;
 import java.util.Set;
 
 import ic2.api.recipe.IMachineRecipeManager;
@@ -10,8 +10,6 @@ import ic2.api.upgrade.IUpgradableBlock;
 import ic2.api.upgrade.UpgradableProperty;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
-import ic2.core.block.TileEntityBlock;
-import ic2.core.block.TileEntityInventory;
 import ic2.core.block.comp.Redstone;
 import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.invslot.InvSlotProcessable;
@@ -26,6 +24,7 @@ import ic2.core.network.GuiSynced;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,7 +35,6 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	public final int maxProgress;
 	
 	public final InvSlotProcessable<IRecipeInput, Collection<ItemStack>, ItemStack> inputSlot;
-	
 	public final InvSlotOutput outputSlot;
 	public final InvSlotUpgrade upgradeSlot;
 	
@@ -46,22 +44,37 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	
 
 	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
-	      super(15000, 1);
-	      this.maxProgress = 120000;
-	      this.progress = 0;
+		super(15000, 1);
+		this.maxProgress = 100000;
+		this.progress = 0;
+		
+		this.idleEU = idleEU;
+		this.activeEU = activeEU;
+		
+		this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, recipeSet);
+		this.outputSlot = new InvSlotOutput(this, "output", numberOfOutputs);
+		this.upgradeSlot  = new InvSlotUpgrade(this, "upgrade", 2);
+		
+		this.redstone = (Redstone)this.addComponent(new Redstone(this));
 
-	      this.idleEU = idleEU;
-	      this.activeEU = activeEU;
-	      
-	      this.inputSlot = new InvSlotProcessableGeneric(this, "input", 1, recipeSet);
-	      this.outputSlot = new InvSlotOutput(this, "output", numberOfOutputs);
-	      this.upgradeSlot  = new InvSlotUpgrade(this, "upgrade", 2);
-	    
-	      this.redstone = (Redstone)this.addComponent(new Redstone(this));
-	   /*   this.comparator.setUpdate(() -> {
-	         return this.heat * 15 / 10000;
-	      });*/
 	   }
+	
+	@Override
+	public void readFromNBT(final NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		this.progress = nbt.getInteger("progress");
+    }
+	
+	@Override
+    public NBTTagCompound writeToNBT(final NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setInteger("progress", this.progress);
+        return nbt;
+    }
+    
+    protected void onUnloaded() {
+        super.onUnloaded();
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -89,14 +102,12 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 
 	@Override
 	public boolean useEnergy(double amount) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.energy.useEnergy(amount);
 	}
 
 	@Override
 	public Set<UpgradableProperty> getUpgradableProperties() {
-		// TODO Auto-generated method stub
-		return null;
+	      return EnumSet.of(UpgradableProperty.RedstoneSensitive, UpgradableProperty.ItemConsuming, UpgradableProperty.ItemProducing);
 	}
 
 }
