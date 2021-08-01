@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import ru.artic030.mod02.Mod02;
 import ru.artic030.mod02.machines.DigitalGeneratorTE;
 
-public enum MachinesTE implements ITeBlock {
+public enum GeneratorsTE implements ITeBlock {
 	
 	digital_generator(DigitalGeneratorTE.class, 1, EnumRarity.RARE);
 	
@@ -26,10 +26,10 @@ public enum MachinesTE implements ITeBlock {
 	private final int itemMeta;
 	private final EnumRarity rarity;
 	private TileEntityBlock dummyTe;
-	private static final MachinesTE[] VALUES = values();
-	public static final ResourceLocation LOCATION = new ResourceLocation("mod02", "machines");
+	private static final GeneratorsTE[] VALUES = values();
+	public static final ResourceLocation LOCATION = new ResourceLocation("mod02", "generators");
 	
-	private MachinesTE(Class<? extends TileEntityBlock> teClass, int itemMeta, EnumRarity rarity) {
+	private GeneratorsTE(Class<? extends TileEntityBlock> teClass, int itemMeta, EnumRarity rarity) {
 		this.teClass = teClass;
 		this.itemMeta = itemMeta;
 		this.rarity = rarity;
@@ -95,10 +95,10 @@ public enum MachinesTE implements ITeBlock {
    public static void buildDummies() {
       ModContainer mc = Loader.instance().activeModContainer();
       if (mc != null && Mod02.MODID.equals(mc.getModId())) {
-    	  MachinesTE[] var1 = VALUES;
+    	  GeneratorsTE[] var1 = VALUES;
          int var2 = var1.length;
          for(int var3 = 1; var3 < var2; ++var3) {
-        	 MachinesTE block = var1[var3];
+        	 GeneratorsTE block = var1[var3];
              if (block.teClass != null) {
             	 try {
             		 block.dummyTe = (TileEntityBlock)block.teClass.newInstance();
