@@ -50,17 +50,18 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	
 	private int lastSoundEvent;
 	
-	public TileEntityTestMachine(IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
-	      this( (byte)2 , recipeSet);
+	public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager recipeSet) {
+	      this((byte)2, numberOfOutputs, recipeSet);
 	   }
 
-	   public TileEntityTestMachine(byte tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
-	      this(tier, recipeSet, 1, 15);
+	   public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager recipeSet) {
+	      this(tier, numberOfOutputs, recipeSet, 1, 15);
 	   }
 
-	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
-	      this((byte)2, (byte)1, recipeSet, idleEU, activeEU);
+	   public TileEntityTestMachine(byte numberOfOutputs, IMachineRecipeManager recipeSet, int idleEU, int activeEU) {
+	      this((byte)2, numberOfOutputs, recipeSet, idleEU, activeEU);
 	   }
+	   
 	public TileEntityTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 		super(15000, 1);
 		this.maxProgress = 100000;
