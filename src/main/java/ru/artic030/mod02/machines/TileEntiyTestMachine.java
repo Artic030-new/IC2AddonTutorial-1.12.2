@@ -8,8 +8,10 @@ import ic2.api.recipe.IMachineRecipeManager;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.MachineRecipeResult;
 import ic2.api.upgrade.IUpgradableBlock;
+import ic2.api.upgrade.IUpgradeItem;
 import ic2.api.upgrade.UpgradableProperty;
 import ic2.core.ContainerBase;
+import ic2.core.IC2;
 import ic2.core.IHasGui;
 import ic2.core.block.comp.Redstone;
 import ic2.core.block.invslot.InvSlotOutput;
@@ -22,6 +24,7 @@ import ic2.core.gui.dynamic.DynamicGui;
 import ic2.core.gui.dynamic.GuiParser;
 import ic2.core.gui.dynamic.IGuiValueProvider;
 import ic2.core.network.GuiSynced;
+import ic2.core.network.NetworkManager;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -34,7 +37,7 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	protected final int idleEU;
 	protected final int activeEU;
 	protected final int maxProgress;
-	
+	 
 	public final InvSlotProcessable<IRecipeInput, Collection<ItemStack>, ItemStack> inputSlot;
 	public final InvSlotOutput outputSlot;
 	public final InvSlotUpgrade upgradeSlot;
@@ -42,6 +45,8 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	protected final Redstone redstone;
 	
 	@GuiSynced public int progress;
+	
+	private int lastSoundEvent;
 	
 
 	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
@@ -85,7 +90,7 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	      if (this.canRun()) {
 	         if (canOperate && this.energy.useEnergy((double)this.activeEU)) {
 	            spinUp = true;
-	            this.progress += this.heat;
+	            this.progress += 10;
 	            this.updateSound(0);
 	         } else {
 	            spinUp = this.redstone.hasRedstoneInput();
@@ -134,21 +139,21 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
             return false;
         }
         final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
-        return output != null && this.outputSlot.canAdd((Collection)output.getOutput());
+        return output != null && this.outputSlot.canAdd((Collection<ItemStack>)output.getOutput());
     }
     
     public void operate() {
         assert this.canOperate();
         final MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> output = (MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)this.inputSlot.process();
         this.processUpgrades((Collection<ItemStack>)output.getOutput());
-        this.outputSlot.add((Collection)output.getOutput());
-        this.inputSlot.consume((MachineRecipeResult)output);
+        this.outputSlot.add((Collection<ItemStack>)output.getOutput());
+        this.inputSlot.consume((MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>)output);
     }
     
     protected void processUpgrades(final Collection<ItemStack> output) {
         for (final ItemStack stack : this.upgradeSlot) {
-            if (stack != null && stack.func_77973_b() instanceof IUpgradeItem) {
-                ((IUpgradeItem)stack.func_77973_b()).onProcessEnd(stack, (IUpgradableBlock)this, (Collection)output);
+            if (stack != null && stack.getItem() instanceof IUpgradeItem) {
+                ((IUpgradeItem)stack.getItem()).onProcessEnd(stack, (IUpgradableBlock)this, (Collection<ItemStack>)output);
             }
         }
     }
@@ -169,6 +174,17 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
     protected void onUnloaded() {
         super.onUnloaded();
     }
+    
+    protected void updateSound(int event) {
+        if (this.lastSoundEvent != event) {
+           ((NetworkManager)IC2.network.get(true)).initiateTileEntityEvent(this, this.lastSoundEvent = event, true);
+        }
+
+     }
+
+     protected String getSound() {
+        return null;
+     }
 
 	@Override
 	@SideOnly(Side.CLIENT)
