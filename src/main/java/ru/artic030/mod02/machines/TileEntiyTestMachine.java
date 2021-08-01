@@ -1,6 +1,10 @@
 package ru.artic030.mod02.machines;
 
+import java.util.Collection;
+import java.util.List;
+
 import ic2.api.recipe.IMachineRecipeManager;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
 import ic2.core.block.comp.Redstone;
@@ -16,6 +20,7 @@ import ic2.core.gui.dynamic.IGuiValueProvider;
 import ic2.core.network.GuiSynced;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,7 +30,8 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	private final int activeEU;
 	private final int maxProgress;
 	
-	public final InvSlotProcessable inputSlot;
+	public final InvSlotProcessable<IRecipeInput, List<ItemStack>, ItemStack> inputSlot;
+	
 	public final InvSlotOutput outputSlot;
 	   public final InvSlotUpgrade upgradeSlot;
 	   protected final Redstone redstone;
