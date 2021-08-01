@@ -20,7 +20,7 @@ import ru.artic030.mod02.machines.DigitalGeneratorTE;
 
 public enum MachinesTE implements ITeBlock {
 	
-	digital_generator(ru.artic030.mod02.machines.DigitalGeneratorTE.class, 1, EnumRarity.RARE);
+	digital_generator(DigitalGeneratorTE.class, 1, EnumRarity.RARE);
 	
 	private final Class<? extends TileEntityBlock> teClass;
 	private final int itemMeta;

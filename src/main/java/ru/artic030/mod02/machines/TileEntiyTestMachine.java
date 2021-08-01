@@ -2,6 +2,7 @@ package ru.artic030.mod02.machines;
 
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import ic2.api.recipe.IMachineRecipeManager;
@@ -25,6 +26,7 @@ import ic2.core.gui.dynamic.GuiParser;
 import ic2.core.gui.dynamic.IGuiValueProvider;
 import ic2.core.network.GuiSynced;
 import ic2.core.network.NetworkManager;
+import ic2.core.util.StackUtil;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -48,7 +50,17 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	
 	private int lastSoundEvent;
 	
+	public TileEntiyTestMachine(IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
+	      this( (byte)2 , recipeSet);
+	   }
 
+	   public TileEntiyTestMachine(byte tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
+	      this(tier, recipeSet, 1, 15);
+	   }
+
+	   public TileEntiyTestMachine(byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
+	      this((byte)2, (byte)1, recipeSet, idleEU, activeEU);
+	   }
 	public TileEntiyTestMachine(byte tier, byte numberOfOutputs, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 		super(15000, 1);
 		this.maxProgress = 100000;
@@ -64,6 +76,9 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 		this.redstone = (Redstone)this.addComponent(new Redstone(this));
 
 	   }
+	
+	
+
 	
 	protected boolean canRun() {
 	        return true;
@@ -86,50 +101,31 @@ public class TileEntiyTestMachine extends TileEntityElectricMachine implements I
 	         }
 	      }
 
-	      boolean spinUp;
 	      if (this.canRun()) {
 	         if (canOperate && this.energy.useEnergy((double)this.activeEU)) {
-	            spinUp = true;
 	            this.progress += 10;
 	            this.updateSound(0);
 	         } else {
-	            spinUp = this.redstone.hasRedstoneInput();
-	            this.progress = 0;
-	            if (spinUp && !this.energy.useEnergy((double)this.idleEU)) {
-	               spinUp = false;
-	            } else {
-	               this.updateSound(2);
-	            }
+	        	 this.progress = 0;
+	        	 this.updateSound(2);  
 	         }
 	      } else {
-	         spinUp = false;
+	    	  this.progress = 0;
 	      }
 
-	      if (spinUp) {
-	         this.heat = (short)Math.min(10000, this.heat + 1);
-	      } else {
-	         this.heat = (short)Math.max(0, this.heat - 2);
-	         if (this.heat <= 0) {
-	            if (this.getActive()) {
-	               this.updateSound(1);
-	            }
-	         } else {
-	            this.updateSound(2);
-	         }
-	      }
 
-	      Iterator var4 = this.upgradeSlot.iterator();
+	      Iterator<ItemStack> var4 = this.upgradeSlot.iterator();
 
 	      while(var4.hasNext()) {
 	         ItemStack stack = (ItemStack)var4.next();
-	         if (!StackUtil.isEmpty(stack) && stack.func_77973_b() instanceof IUpgradeItem) {
-	            needsInvUpdate |= ((IUpgradeItem)stack.func_77973_b()).onTick(stack, this);
+	         if (!StackUtil.isEmpty(stack) && stack.getItem() instanceof IUpgradeItem) {
+	            needsInvUpdate |= ((IUpgradeItem)stack.getItem()).onTick(stack, this);
 	         }
 	      }
 
-	      this.setActive(this.heat > 0);
+	      this.setActive(true);
 	      if (needsInvUpdate) {
-	         this.func_70296_d();
+	         this.markDirty();
 	      }
 
 	   }
