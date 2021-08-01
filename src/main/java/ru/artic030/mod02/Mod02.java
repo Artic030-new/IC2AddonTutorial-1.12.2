@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import ru.artic030.mod02.load.IC2ToolsLoader;
-import ru.artic030.mod02.load.AdvancedMachineTEs;
+import ru.artic030.mod02.load.MachineTEs;
 import ru.artic030.mod02.load.GeneratorsTE;
 import ru.artic030.mod02.proxies.CommonProxy;
 import ru.artic030.mod02.rezepte.Recipies;
@@ -60,7 +60,7 @@ public class Mod02 {
 	@SubscribeEvent
 	public void register(TeBlockFinalCallEvent event) {
 		TeBlockRegistry.addAll(GeneratorsTE.class, GeneratorsTE.LOCATION);
-		TeBlockRegistry.addAll(AdvancedMachineTEs.class, AdvancedMachineTEs.IDENTITY);
+		TeBlockRegistry.addAll(MachineTEs.class, MachineTEs.IDENTITY);
 	}
 	
 	@EventHandler
