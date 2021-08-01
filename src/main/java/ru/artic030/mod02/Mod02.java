@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import ic2.api.event.TeBlockFinalCallEvent;
 import ic2.api.item.IC2Items;
+import ic2.core.block.BlockTileEntity;
 import ic2.core.block.TeBlockRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -42,12 +43,15 @@ public class Mod02 {
 
 	public static final ItemStack platecarbon = IC2Items.getItem("crafting", "carbon_plate");
 	public static final ItemStack iridium = IC2Items.getItem("misc_resource", "iridium_ore");
+	
+	public static BlockTileEntity machine;
 
 	private static String ACTIVATED = "activated";
 	
 	private Logger log;
 	
-	@EventHandler
+	
+	@Mod.EventHandler
 	public void start(FMLConstructionEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 	}

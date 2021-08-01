@@ -8,7 +8,9 @@ import ic2.core.util.Util;
 import java.util.Set;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.EnumFaceDirection;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
@@ -20,7 +22,7 @@ public enum MachinesTE implements ITeBlock {
 	
 	digital_generator(ru.artic030.mod02.machines.DigitalGeneratorTE.class, 1, EnumRarity.RARE);
 	
-	private final Class teClass;
+	private final Class<? extends TileEntityBlock> teClass;
 	private final int itemMeta;
 	private final EnumRarity rarity;
 	private TileEntityBlock dummyTe;
@@ -54,7 +56,7 @@ public enum MachinesTE implements ITeBlock {
       return LOCATION;
    }
 
-   public Class getTeClass() {
+   public Class<? extends TileEntityBlock> getTeClass() {
       return this.teClass;
    }
 
@@ -82,7 +84,7 @@ public enum MachinesTE implements ITeBlock {
       return false;
    }
 
-   public Set getSupportedFacings() {
+   public Set<EnumFacing> getSupportedFacings() {
       return Util.horizontalFacings;
    }
 

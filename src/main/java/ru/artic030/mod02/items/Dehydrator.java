@@ -95,6 +95,8 @@ public class Dehydrator extends ItemElectricTool {
 					this.attackDamage = 12.0F;
 					IC2.platform.messagePlayer(player, "Боевой режим активирован");
 				} else {
+					isCombatModeOn = false;
+					this.attackDamage = 2.0F;
 					IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
 					player.getCooldownTracker().setCooldown(this, 40);
 					IC2.platform.messagePlayer(player, "Внимание! Не хватает энергии для осуществления операции.");
