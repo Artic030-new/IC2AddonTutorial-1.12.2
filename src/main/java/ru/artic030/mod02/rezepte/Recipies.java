@@ -70,6 +70,8 @@ public final class Recipies {
 		       addMinCentrifugeRecipe(input.forStack(glass), sand, nbt);
 		        addMedCentrifugeRecipe(input.forStack(dirt), claydustx2, sandx2,nbt);
 		         addAdvCentrifugeRecipe(input.forStack(gravel), flintx2, sand, stonedustx3, nbt );
+		         
+		         addCentrifuge2Recipe(input.forStack(gravel), sand);
 		   /*   
 		      addMinOreWashingRecipe(input.forStack(coins), sand, nbt2);
 		      addMedOreWashingRecipe(input.forStack(sandstone), sand.splitStack(4), stonedustx3, nbt2);
@@ -95,6 +97,10 @@ public final class Recipies {
 		 ic2.api.recipe.Recipes.extractor.addRecipe(input, (NBTTagCompound)null, false, new ItemStack[] {output});
 	 }
 	 
+	 private static void addCentrifuge2Recipe(IRecipeInput input, ItemStack output) 
+	 {
+		 ic2.api.recipe.Recipes.centrifuge2.addRecipe(input, (NBTTagCompound)null, false, new ItemStack[] {output});
+	 }
 	
 	 private static void addRollingRecipe(IRecipeInput input, ItemStack output) 
 	 {

@@ -75,7 +75,7 @@ public class Mod02 {
 	public void load(FMLInitializationEvent ev) {
 		Recipies.addCraftingRecipes();
 		Recipies.addMachineRecipe();
-		Recipes.centrifuge2 = new BasicMachineRecipeManager();
+		
 		log.info("Mod " + Mod02.MODID + " version " + Mod02.VERSION + " is " + ACTIVATED);
 	}
 	
