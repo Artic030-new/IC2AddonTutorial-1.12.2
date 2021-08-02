@@ -3,6 +3,7 @@ package ru.artic030.mod02.rezepte;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.IRecipeInputFactory;
+import ic2.core.recipe.BasicMachineRecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,6 +19,8 @@ public final class Recipies {
 	public static final ItemStack irpart  =		IC2Items.getItem("misc_resource", "iridium_shard");
 	public static final ItemStack rawcarbon = 	IC2Items.getItem("crafting", "carbon_mesh");
 	public static final ItemStack rotorblade =  IC2Items.getItem("crafting", "carbon_rotor_blade");
+	public static final ItemStack diamond_small_dust =  IC2Items.getItem("dust", "small_diamond");
+
 	
 	public static final Block ladder = Block.getBlockById(65);
 	public static final Block bars   = Block.getBlockById(101);
@@ -31,6 +34,7 @@ public final class Recipies {
 	public static 		ItemStack gravel = new ItemStack(Blocks.GRAVEL);
 	public static final ItemStack flintx2 = new ItemStack(Items.FLINT, 2);
     public static final ItemStack stonedustx3 = IC2Items.getItem("dust", "stone");
+    public static final ItemStack coaldust = IC2Items.getItem("dust", "coal");
 /*
 	public static final ItemStack sandstone = new ItemStack(Blocks.SANDSTONE);
 	public static final ItemStack stone = new ItemStack(Blocks.STONE);
@@ -71,7 +75,7 @@ public final class Recipies {
 		        addMedCentrifugeRecipe(input.forStack(dirt), claydustx2, sandx2,nbt);
 		         addAdvCentrifugeRecipe(input.forStack(gravel), flintx2, sand, stonedustx3, nbt );
 		         
-		         addCentrifuge2Recipe(input.forStack(gravel), sand);
+		         addCentrifuge2Recipe(input.forStack(coaldust), diamond_small_dust);
 		   /*   
 		      addMinOreWashingRecipe(input.forStack(coins), sand, nbt2);
 		      addMedOreWashingRecipe(input.forStack(sandstone), sand.splitStack(4), stonedustx3, nbt2);
@@ -96,9 +100,10 @@ public final class Recipies {
 	 {
 		 ic2.api.recipe.Recipes.extractor.addRecipe(input, (NBTTagCompound)null, false, new ItemStack[] {output});
 	 }
-	 
+	  
 	 private static void addCentrifuge2Recipe(IRecipeInput input, ItemStack output) 
 	 {
+		 ic2.api.recipe.Recipes.centrifuge2 = new BasicMachineRecipeManager();
 		 ic2.api.recipe.Recipes.centrifuge2.addRecipe(input, (NBTTagCompound)null, false, new ItemStack[] {output});
 	 }
 	

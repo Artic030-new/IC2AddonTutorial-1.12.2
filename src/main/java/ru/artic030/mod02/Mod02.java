@@ -73,6 +73,8 @@ public class Mod02 {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent ev) {
+		
+		
 		Recipies.addCraftingRecipes();
 		Recipies.addMachineRecipe();
 		
