@@ -20,7 +20,7 @@ public final class Recipies {
 	public static final ItemStack rawcarbon = 	IC2Items.getItem("crafting", "carbon_mesh");
 	public static final ItemStack rotorblade =  IC2Items.getItem("crafting", "carbon_rotor_blade");
 	public static final ItemStack diamond_small_dust =  IC2Items.getItem("dust", "small_diamond");
-
+	public static final ItemStack gold_small_dust =  IC2Items.getItem("dust", "small_gold");
 	
 	public static final Block ladder = Block.getBlockById(65);
 	public static final Block bars   = Block.getBlockById(101);
@@ -35,6 +35,7 @@ public final class Recipies {
 	public static final ItemStack flintx2 = new ItemStack(Items.FLINT, 2);
     public static final ItemStack stonedustx3 = IC2Items.getItem("dust", "stone");
     public static final ItemStack coaldust = IC2Items.getItem("dust", "coal");
+    public static final ItemStack glowdust = new ItemStack(Items.GLOWSTONE_DUST);
 /*
 	public static final ItemStack sandstone = new ItemStack(Blocks.SANDSTONE);
 	public static final ItemStack stone = new ItemStack(Blocks.STONE);
@@ -76,6 +77,7 @@ public final class Recipies {
 		         addAdvCentrifugeRecipe(input.forStack(gravel), flintx2, sand, stonedustx3, nbt );
 		         
 		         addCentrifuge2Recipe(input.forStack(coaldust), diamond_small_dust);
+		         addCentrifuge2Recipe(input.forStack(glowdust), diamond_small_dust);
 		   /*   
 		      addMinOreWashingRecipe(input.forStack(coins), sand, nbt2);
 		      addMedOreWashingRecipe(input.forStack(sandstone), sand.splitStack(4), stonedustx3, nbt2);
