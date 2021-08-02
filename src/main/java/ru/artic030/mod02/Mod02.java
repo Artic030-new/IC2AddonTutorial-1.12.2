@@ -4,8 +4,10 @@ import org.apache.logging.log4j.Logger;
 
 import ic2.api.event.TeBlockFinalCallEvent;
 import ic2.api.item.IC2Items;
+import ic2.api.recipe.Recipes;
 import ic2.core.block.BlockTileEntity;
 import ic2.core.block.TeBlockRegistry;
+import ic2.core.recipe.BasicMachineRecipeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -73,7 +75,7 @@ public class Mod02 {
 	public void load(FMLInitializationEvent ev) {
 		Recipies.addCraftingRecipes();
 		Recipies.addMachineRecipe();
-		
+		Recipes.centrifuge2 = new BasicMachineRecipeManager();
 		log.info("Mod " + Mod02.MODID + " version " + Mod02.VERSION + " is " + ACTIVATED);
 	}
 	
