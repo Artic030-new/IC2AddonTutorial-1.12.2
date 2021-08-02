@@ -76,8 +76,8 @@ public final class Recipies {
 		        addMedCentrifugeRecipe(input.forStack(dirt), claydustx2, sandx2,nbt);
 		         addAdvCentrifugeRecipe(input.forStack(gravel), flintx2, sand, stonedustx3, nbt );
 		         
-		         addCentrifuge2Recipe(input.forStack(coaldust), diamond_small_dust);
-		         addCentrifuge2Recipe(input.forStack(glowdust), diamond_small_dust);
+		         addCentrifuge2Recipe(input.forStack(coaldust), diamond_small_dust.splitStack(2));
+		         addCentrifuge2Recipe(input.forStack(glowdust), gold_small_dust);
 		   /*   
 		      addMinOreWashingRecipe(input.forStack(coins), sand, nbt2);
 		      addMedOreWashingRecipe(input.forStack(sandstone), sand.splitStack(4), stonedustx3, nbt2);
@@ -105,7 +105,8 @@ public final class Recipies {
 	  
 	 private static void addCentrifuge2Recipe(IRecipeInput input, ItemStack output) 
 	 {
-		 ic2.api.recipe.Recipes.centrifuge2 = new BasicMachineRecipeManager();
+		 if(ic2.api.recipe.Recipes.centrifuge2 == null)
+			 ic2.api.recipe.Recipes.centrifuge2 = new BasicMachineRecipeManager();
 		 ic2.api.recipe.Recipes.centrifuge2.addRecipe(input, (NBTTagCompound)null, false, new ItemStack[] {output});
 	 }
 	
