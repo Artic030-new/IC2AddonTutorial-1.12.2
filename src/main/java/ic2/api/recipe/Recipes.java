@@ -139,6 +139,8 @@ public class Recipes {
 	public static ICannerEnrichRecipeManager cannerEnrich;
 	public static IElectrolyzerRecipeManager electrolyzer;
 	public static IFermenterRecipeManager fermenter;
+	
+	public static IBasicMachineRecipeManager centrifuge2;
 
 	/**
 	 * Recipe manager for uu mass fabricator (matter gen) recipes.
