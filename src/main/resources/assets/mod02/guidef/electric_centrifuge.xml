@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui width="176" height="166">
     <text y="6" align="center">{mod02.gui.electric_centrifuge.title}</text>
-
     <slot name="input" x="50" y="17"/>
-
-	<image x="110" y="30" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
-	
     <slotgrid name="output" x="113" y="35" rows="1" style="plain"/>
+    <image x="113" y="35" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
     <slot name="discharge" x="50" y="52"/>
     <environment name="game">
-    	<slotgrid name="upgrade" x="120" y="60" rows="1"/>
     	<button type="recipe" x="77" y="37" width="22" height="15" event="extractor, electric_centrifuge"></button>
    	</environment>
     <energygauge x="55" y="37"/>
