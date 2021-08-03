@@ -28,7 +28,6 @@ public enum MachineTEs implements ITeBlock {
    private MachineTEs(Class<? extends TileEntityBlock> teClass, int itemMeta) {
       this.teClass = teClass;
       this.itemMeta = itemMeta;
-      GameRegistry.registerTileEntity(teClass, "mod02:" + this.getName());
    }
 
    public boolean hasItem() {
@@ -86,14 +85,11 @@ public enum MachineTEs implements ITeBlock {
    public Material getMaterial() {
       return Material.IRON;
    }
-
    
    public String[] getRecipeCategories() {
       return new String[]{this.getName()};
    }
 
-  
-  
    public static void buildDummies() {
       ModContainer mc = Loader.instance().activeModContainer();
       if(mc != null && Mod02.MODID.equals(mc.getModId())) {

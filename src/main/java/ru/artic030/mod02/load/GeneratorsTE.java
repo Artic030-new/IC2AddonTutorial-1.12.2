@@ -33,7 +33,7 @@ public enum GeneratorsTE implements ITeBlock {
 		this.teClass = teClass;
 		this.itemMeta = itemMeta;
 		this.rarity = rarity;
-		GameRegistry.registerTileEntity(teClass, "mod02:" + this.getName());
+	//	GameRegistry.registerTileEntity(teClass, "mod02:" + this.getName());
 	}
 	   
    public TileEntityBlock getDummyTe() {
@@ -77,11 +77,11 @@ public enum GeneratorsTE implements ITeBlock {
    }
 
    public DefaultDrop getDefaultDrop() {
-      return DefaultDrop.Self;
+      return DefaultDrop.Generator;
    }
 
    public boolean allowWrenchRotating() {
-      return false;
+      return true;
    }
 
    public Set<EnumFacing> getSupportedFacings() {
