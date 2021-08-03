@@ -79,10 +79,8 @@ public class Dehydrator extends ItemElectricTool {
 			}
 			return EnumActionResult.PASS;
 		} else {
-			IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
-			player.getCooldownTracker().setCooldown(this, 40);
-			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
-				return EnumActionResult.FAIL;
+			signalErrorFor(player);
+			return EnumActionResult.FAIL;
 		}
 	}
 	@Override
@@ -90,16 +88,15 @@ public class Dehydrator extends ItemElectricTool {
 		ItemStack stack = player.getHeldItem(hand);
 		if((!world.isRemote) && (IC2.keyboard.isModeSwitchKeyDown(player))) {	
 			if(!isCombatModeOn) {
-				if(ElectricItem.manager.getCharge(stack) >= this.dehydrationEnergyCost) {
+				if(ElectricItem.manager.getCharge(stack) >= this.dehydrationEnergyCost / 8) {
+					ElectricItem.manager.discharge(stack, --this.dehydrationEnergyCost / 8, tier, true, false, false);
 					isCombatModeOn = true;
 					this.attackDamage = 12.0F;
 					IC2.platform.messagePlayer(player, "Боевой режим активирован");
 				} else {
 					isCombatModeOn = false;
 					this.attackDamage = 2.0F;
-					IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
-					player.getCooldownTracker().setCooldown(this, 40);
-					IC2.platform.messagePlayer(player, "Внимание! Не хватает энергии для осуществления операции.");
+					signalErrorFor(player);
 					return super.onItemRightClick(world, player, hand);
 				}
 				
@@ -112,5 +109,10 @@ public class Dehydrator extends ItemElectricTool {
 		}
 			return super.onItemRightClick(world, player, hand);
 }
+	void signalErrorFor(EntityPlayer player) {
+		IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
+		player.getCooldownTracker().setCooldown(this, 40);
+		player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
+	}
 
 }
