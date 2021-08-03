@@ -5,8 +5,8 @@
     <slot name="input" x="50" y="17"/>
 
 	<image x="110" y="30" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
+	
     <slotgrid name="output" x="113" y="35" rows="1" style="plain"/>
-
     <slot name="discharge" x="50" y="52"/>
     <environment name="game">
     	<slotgrid name="upgrade" x="120" y="60" rows="1"/>
@@ -15,8 +15,4 @@
     <energygauge x="55" y="37"/>
     <gauge name="progress" x="77" y="37" style="progressdrop"/>
     <playerInventory x="7" y="83"/>
-
-	<text x="10" y="26">{mod02.gui.speed}</text>
-
-	<text x="10" y="46">{mod02.gui.speed.vel_unit}</text>
 </gui>
