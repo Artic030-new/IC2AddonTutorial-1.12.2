@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui width="176" height="166">
     <text y="6" align="center">{mod02.gui.electric_centrifuge.title}</text>
+
     <slot name="input" x="50" y="17"/>
+
+	
+	
     <slotgrid name="output" x="113" y="35" rows="1" style="plain"/>
-    <image x="113" y="35" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
+    <image x="112" y="34" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
     <slot name="discharge" x="50" y="52"/>
     <environment name="game">
     	<button type="recipe" x="77" y="37" width="22" height="15" event="extractor, electric_centrifuge"></button>
    	</environment>
     <energygauge x="55" y="37"/>
-    <gauge name="progress" x="77" y="37" style="progressdrop"/>
+    <gauge name="progress" x="77" y="37" style="progressarrowmodern"/>
+    											<!-- styles: 
+    												style="fuel" -  Прогресс сгорания топлива (как в генераторе), снизу-вверх
+    												style="bucket" - Прогресс наполнения ведра (как в водяной мельнице), снизу-вверх
+    												style="progresswind" - Прогресс уровня ветра (как в ветряке), снизу-вверх
+    												style="progressarrow" - Прогресс в стиле печки. Стрелка, слева-направо
+    												style="progressarrowmodern" - Новый дизайм стрелки. Стрелка, слева-направо
+    												style="progresscrush" - В стиле дробителя, слева-направо
+    												style="progresstriangle" - В стиле компрессора, слева-направо
+    												style="progressdrop" - В стиле экстрактора, слева-направо
+    												
+    											-->
     <playerInventory x="7" y="83"/>
 </gui>
