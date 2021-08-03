@@ -10,7 +10,8 @@
     <image x="112" y="34" src="mod02:textures/gui/overlay/electric_centrifuge_output"/>
     <slot name="discharge" x="50" y="52"/>
     <environment name="game">
-    	<button type="recipe" x="77" y="37" width="22" height="15" event="extractor, electric_centrifuge"></button>
+    	<button type="recipe" x="77" y="37" width="22" height="15" event="electric_centrifuge"></button>
+    	<slotgrid name="upgrade" x="151" y="25" cols="1"/>
    	</environment>
     <energygauge x="55" y="37"/>
     <gauge name="progress" x="77" y="37" style="progressarrowmodern"/>
