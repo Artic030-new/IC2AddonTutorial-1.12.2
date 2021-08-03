@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui width="176" height="166">
-    <text y="6" align="center">%name%</text>
+    <text y="6" align="center">{mod02.gui.electric_centrifuge.title}</text>
 
     <slot name="input" x="50" y="17"/>
 
