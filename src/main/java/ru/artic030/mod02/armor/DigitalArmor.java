@@ -1,30 +1,18 @@
 package ru.artic030.mod02.armor;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import ic2.api.item.ElectricItem;
 import ic2.api.item.HudMode;
 import ic2.api.item.IItemHudProvider;
-import ic2.core.IC2;
-import ic2.core.init.Localization;
-import ic2.core.item.ItemTinCan;
 import ic2.core.item.armor.ItemArmorElectric;
 import ic2.core.item.armor.jetpack.IJetpack;
 import ic2.core.ref.ItemName;
-import ic2.core.util.StackUtil;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -55,8 +43,8 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 	}
 
 	@Override
-	public boolean drainEnergy(ItemStack arg0, int arg1) {
-		return false;
+	public boolean drainEnergy(ItemStack pack, int amount) {
+		return ElectricItem.manager.discharge(pack, (double)(amount + 6), Integer.MAX_VALUE, true, false, false) > 0.0D;
 	}
 
 	@Override
@@ -81,7 +69,7 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 
 	@Override
 	public float getWorldHeightDivisor(ItemStack arg0) {
-		return 0;
+		return 0.77F;
 	}
 
 	@Override
