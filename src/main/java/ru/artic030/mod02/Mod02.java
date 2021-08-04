@@ -33,6 +33,7 @@ import ru.artic030.mod02.rezepte.Recipies;
 public class Mod02 {
 
 @SidedProxy(clientSide = Mod02.CLIENT_PROXY, serverSide = Mod02.COMMON_PROXY)
+
 	public static CommonProxy proxy;
 
 	@Instance("mod02")
@@ -46,13 +47,10 @@ public class Mod02 {
 
 	public static final ItemStack platecarbon = IC2Items.getItem("crafting", "carbon_plate");
 	public static final ItemStack iridium = IC2Items.getItem("misc_resource", "iridium_ore");
-	
-
 
 	private static String ACTIVATED = "activated";
 	
 	private Logger log;
-	
 	
 	@Mod.EventHandler
 	public void start(FMLConstructionEvent event) {
@@ -73,11 +71,8 @@ public class Mod02 {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent ev) {
-		
-		
 		Recipies.addCraftingRecipes();
 		Recipies.addMachineRecipe();
-		
 		log.info("Mod " + Mod02.MODID + " version " + Mod02.VERSION + " is " + ACTIVATED);
 	}
 	

@@ -19,8 +19,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHudProvider {
 
-	public DigitalArmor(ItemName name, EntityEquipmentSlot armorType) {
-		super((ItemName)null, "digital", armorType, 100000.0D, 100.0D, 2);
+	public DigitalArmor(ItemName name) {
+		super((ItemName)null, "digital", EntityEquipmentSlot.HEAD, 100000.0D, 100.0D, 2);
 	}
 	
 	public boolean addsProtection(EntityLivingBase entity, EntityEquipmentSlot slot, ItemStack stack) {
