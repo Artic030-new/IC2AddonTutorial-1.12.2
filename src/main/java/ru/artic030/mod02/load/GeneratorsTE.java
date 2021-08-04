@@ -33,7 +33,6 @@ public enum GeneratorsTE implements ITeBlock {
 		this.teClass = teClass;
 		this.itemMeta = itemMeta;
 		this.rarity = rarity;
-	//	GameRegistry.registerTileEntity(teClass, "mod02:" + this.getName());
 	}
 	   
    public TileEntityBlock getDummyTe() {

@@ -12,11 +12,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 
 public class BackgroundlessDynamicGUI extends DynamicGui {
-   public static DynamicGui<?> create(IInventory base, EntityPlayer player, GuiNode guiNode) {
+   public static DynamicGui<ContainerBase<IInventory>> create(IInventory base, EntityPlayer player, GuiNode guiNode) {
       return new BackgroundlessDynamicGUI(player, DynamicContainer.create(base, player, guiNode), guiNode);
    }
 
-   protected BackgroundlessDynamicGUI(EntityPlayer player, ContainerBase<IInventory> container, GuiNode guiNode) {
+   @SuppressWarnings("unchecked")
+protected BackgroundlessDynamicGUI(EntityPlayer player, ContainerBase<IInventory> container, GuiNode guiNode) {
       super(player, container, guiNode);
    }
 
