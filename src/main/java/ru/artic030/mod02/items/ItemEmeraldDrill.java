@@ -3,6 +3,7 @@ package ru.artic030.mod02.items;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
+import ic2.api.item.ElectricItem;
 import ic2.core.IC2;
 import ic2.core.init.BlocksItems;
 import ic2.core.item.tool.HarvestLevel;
@@ -27,11 +28,11 @@ public class ItemEmeraldDrill extends ItemDrill {
 	
 	public static int maxCharg = 96000;
 	public static byte tir = 2;
-	public static short preUse = 196;
+	public static short perUse = 196;
 	public static float eff = 16.0F;
 	
 	public ItemEmeraldDrill() {
-		super((ItemName)null, preUse, HarvestLevel.Diamond, maxCharg, 160, tir, eff);
+		super((ItemName)null, perUse, HarvestLevel.Diamond, maxCharg, 160, tir, eff);
 		((ItemEmeraldDrill)BlocksItems.registerItem(this, new ResourceLocation("mod02", "emerald_drill"))).setUnlocalizedName("emerald_drill");
 	}
 	
@@ -49,7 +50,7 @@ public class ItemEmeraldDrill extends ItemDrill {
 			Map<Enchantment, Integer> ench = new IdentityHashMap<Enchantment, Integer>();
 			ench.put(Enchantments.FORTUNE, Integer.valueOf(2));
 			ItemStack stack = StackUtil.get(player, hand);
-			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) == 0) {
+			if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack) == 0 && ElectricItem.manager.getCharge(stack) >= ItemEmeraldDrill.perUse) {
 				ench.put(Enchantments.FORTUNE, Integer.valueOf(2));
 				IC2.platform.messagePlayer(player, "Режим удачи включён");
 			} else {
