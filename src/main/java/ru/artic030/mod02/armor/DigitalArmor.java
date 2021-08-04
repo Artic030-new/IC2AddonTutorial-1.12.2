@@ -60,13 +60,13 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 	}
 
 	@Override
-	public double getChargeLevel(ItemStack arg0) {
-		return 0;
+	public double getChargeLevel(ItemStack stack) {
+		return ElectricItem.manager.getCharge(stack) / this.getMaxCharge(stack);
 	}
 
 	@Override
 	public float getDropPercentage(ItemStack arg0) {
-		return 0;
+		return 0.25F;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 
 	@Override
 	public float getPower(ItemStack arg0) {
-		return 0;
+		return 1.0F;
 	}
 
 	@Override
@@ -122,7 +122,6 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 		default:
 			break;
 	      }
-
 	      if (ret) {
 	         player.inventoryContainer.detectAndSendChanges();
 	      }
