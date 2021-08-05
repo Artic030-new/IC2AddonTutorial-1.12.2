@@ -21,8 +21,6 @@ public class Cesium137 extends ItemReactorUranium implements IReactorComponent, 
 		 ItemLoader.ITEMS.add(this);
 	 }
 
-
-
 	 protected int getFinalHeat(ItemStack stack, IReactor reactor, int x, int y, int heat) {
 		 return heat / 2;
      }
