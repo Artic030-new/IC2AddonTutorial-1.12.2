@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.item.Item;
 import ru.artic030.mod02.items.Cesium137;
 import ru.artic030.mod02.items.CustomReactorPlating;
+import ru.artic030.mod02.items.ElectricPotion;
 import ru.artic030.mod02.items.EnderCannon;
 import ru.artic030.mod02.items.FreezerCannon;
 import ru.artic030.mod02.items.IngeneerBattery;
@@ -22,5 +23,7 @@ public class ItemLoader {
 		public static final Item CESIUM137_CELL = (Item) new Cesium137("cesium_137");
 		public static final Item CUSTOM_REACTOR_PLATING = (Item) new CustomReactorPlating("custom_contaitment");
 		public static final Item INGENEER_BATTERY = (Item) new IngeneerBattery("ingeneer_battery");
+		public static final Item ELECTRIC_POTION = (Item) new ElectricPotion("electric_potion");
+
 
 }

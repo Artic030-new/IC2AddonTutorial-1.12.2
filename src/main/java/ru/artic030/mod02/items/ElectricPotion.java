@@ -1,5 +1,12 @@
 package ru.artic030.mod02.items;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
@@ -22,6 +29,9 @@ public class ElectricPotion extends Item implements IElectricItem {
 	public static byte tier = 3;
 	public static short TransferLimit = 128;
 	public static short preUse = 300;
+	public static int mode = 0;
+	
+	private Map<Integer, PotionEffect> supportedEffects = new HashMap<Integer, PotionEffect>();
 	
 	public ElectricPotion(String name) {
 		this.setUnlocalizedName(name);
@@ -29,6 +39,10 @@ public class ElectricPotion extends Item implements IElectricItem {
 		this.setCreativeTab(IC2.tabIC2);
 		this.setMaxDamage(27);
 		ItemLoader.ITEMS.add(this);
+		supportedEffects.put(0, new PotionEffect(Potion.getPotionById(19)));
+		supportedEffects.put(1, new PotionEffect(Potion.getPotionById(19)));
+		supportedEffects.put(2, new PotionEffect(Potion.getPotionById(19)));
+		supportedEffects.put(3, new PotionEffect(Potion.getPotionById(19)));
 	}
 	
 	@Override
@@ -52,7 +66,7 @@ public class ElectricPotion extends Item implements IElectricItem {
 	@Override
 	public double getTransferLimit(ItemStack stack) {
 
-		return 100000;
+		return TransferLimit;
 	}
 	
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
@@ -60,11 +74,17 @@ public class ElectricPotion extends Item implements IElectricItem {
 		if(world.isRemote)
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		if(ElectricItem.manager.getCharge(stack) >= ElectricPotion.preUse) {
-			ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);
-			if(!world.isRemote) {
-				player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0));
-			} 
-			player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+			if(mode <= supportedEffects.size()) {
+				ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);
+				if(!world.isRemote) {
+					switch(mode) {
+					
+					}
+					player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0));
+				} 
+				player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+			}
+			
 		} else {
 			player.getCooldownTracker().setCooldown(stack.getItem(), 40);
 			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
