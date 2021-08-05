@@ -11,6 +11,8 @@ import ic2.core.item.tool.HarvestLevel;
 import ic2.core.item.tool.ItemDrill;
 import ic2.core.ref.ItemName;
 import ic2.core.util.StackUtil;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -20,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -45,6 +48,25 @@ public class ItemEmeraldDrill extends ItemDrill {
 	
 	public String locationReplacer() {
 		return "mod02." + super.getUnlocalizedName().substring(4);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	   public String getBreakSoundForBlock(EntityPlayerSP player, World world, BlockPos pos, ItemStack stack) {
+	      if (player.capabilities.isCreativeMode) {
+	         return null;
+	      } else {
+	    	  if(ElectricItem.manager.getCharge(stack) >= ItemEmeraldDrill.perUse) { 
+	    		  IBlockState state = world.getBlockState(pos);
+	 	         float hardness = state.getBlockHardness(world, pos);
+	 	         return hardness <= 1.0F && hardness >= 0.0F ? "Tools/Drill/DrillSoft.ogg" : "Tools/Drill/DrillHard.ogg";
+	    	  } else return "";
+	      }
+	   }
+	
+	@Override
+	public boolean breakBlock(ItemStack stack, World world, BlockPos pos, IBlockState state) {
+		return ElectricItem.manager.getCharge(stack) >= ItemEmeraldDrill.perUse ? super.breakBlock(stack, world, pos, state) : false;
 	}
 	
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
