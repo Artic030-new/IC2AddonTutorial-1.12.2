@@ -60,7 +60,10 @@ public class ItemEmeraldDrill extends ItemDrill {
 	    		  IBlockState state = world.getBlockState(pos);
 	 	         float hardness = state.getBlockHardness(world, pos);
 	 	         return hardness <= 1.0F && hardness >= 0.0F ? "Tools/Drill/DrillSoft.ogg" : "Tools/Drill/DrillHard.ogg";
-	    	  } else return "";
+	    	  } else {
+	    		  signalErrorFor(player);
+	    		  return /*"mod02:dehydratorError.ogg"*/"";
+	    	  } 
 	      }
 	   }
 	
