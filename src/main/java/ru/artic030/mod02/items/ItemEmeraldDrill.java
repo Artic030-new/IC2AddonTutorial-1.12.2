@@ -5,6 +5,7 @@ import java.util.Map;
 
 import ic2.api.item.ElectricItem;
 import ic2.core.IC2;
+import ic2.core.audio.PositionSpec;
 import ic2.core.init.BlocksItems;
 import ic2.core.item.tool.HarvestLevel;
 import ic2.core.item.tool.ItemDrill;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -55,9 +57,15 @@ public class ItemEmeraldDrill extends ItemDrill {
 				IC2.platform.messagePlayer(player, "Режим удачи включён");
 			} else {
 				ench.clear();
-				IC2.platform.messagePlayer(player, "Режим удачи выключен");
+				signalErrorFor(player);
 			}
 				EnchantmentHelper.setEnchantments(ench, stack);
 		}
 			return super.onItemRightClick(world, player, hand);
-}}
+}
+	void signalErrorFor(EntityPlayer player) {
+		IC2.audioManager.playOnce(player, PositionSpec.Hand, "mod02:dehydratorError.ogg", true, IC2.audioManager.getDefaultVolume() -1.0F);
+		player.getCooldownTracker().setCooldown(this, 40);
+		player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));
+	}
+	}
