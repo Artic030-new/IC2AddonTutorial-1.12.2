@@ -78,11 +78,14 @@ public class ElectricPotion extends Item implements IElectricItem {
 				ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);
 				if(!world.isRemote) {
 					switch(mode) {
-					
+					case 0: player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0)); break;
+					case 1: 
 					}
-					player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0));
+					
 				} 
 				player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+			} else {
+				mode = 0;
 			}
 			
 		} else {
