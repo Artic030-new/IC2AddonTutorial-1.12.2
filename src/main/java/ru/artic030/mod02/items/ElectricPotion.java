@@ -38,11 +38,11 @@ public class ElectricPotion extends Item implements IElectricItem {
 		this.setRegistryName(name);
 		this.setCreativeTab(IC2.tabIC2);
 		this.setMaxDamage(27);
-		ItemLoader.ITEMS.add(this);
 		supportedEffects.put(0, new PotionEffect(Potion.getPotionById(19)));
 		supportedEffects.put(1, new PotionEffect(Potion.getPotionById(19)));
 		supportedEffects.put(2, new PotionEffect(Potion.getPotionById(19)));
 		supportedEffects.put(3, new PotionEffect(Potion.getPotionById(19)));
+		ItemLoader.ITEMS.add(this);
 	}
 	
 	@Override
@@ -74,20 +74,23 @@ public class ElectricPotion extends Item implements IElectricItem {
 		if(world.isRemote)
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		if(ElectricItem.manager.getCharge(stack) >= ElectricPotion.preUse) {
-			if(mode <= supportedEffects.size()) {
-				ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);
-				if(!world.isRemote) {
-					switch(mode) {
+			if((!world.isRemote) && (IC2.keyboard.isModeSwitchKeyDown(player))) {
+				if(mode <= supportedEffects.size()) {
+					mode++;
+					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse / 100, tier, true, false, false);	
+				} else {
+					mode = 0;
+					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse / 100, tier, true, false, false);
+				}
+		} else {
+			if(!world.isRemote) {
+				switch(mode) {
 					case 0: player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0)); break;
 					case 1: 
-					}
-					
-				} 
-				player.getCooldownTracker().setCooldown(stack.getItem(), 400);
-			} else {
-				mode = 0;
-			}
-			
+				}
+			} 
+			player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+		}
 		} else {
 			player.getCooldownTracker().setCooldown(stack.getItem(), 40);
 			player.sendMessage(new TextComponentString("Внимание! Не хватает энергии для осуществления операции."));

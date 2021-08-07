@@ -39,17 +39,17 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 
 	@Override
 	public double getMaxCharge(ItemStack stack) {
-		return this.maxCharge;
+		return FreezerCannon.maxCharge;
 	}
 
 	@Override
 	public int getTier(ItemStack stack) {
-		return this.tier;
+		return FreezerCannon.tier;
 	}
 
 	@Override
 	public double getTransferLimit(ItemStack stack) {
-		return this.TransferLimit;
+		return FreezerCannon.TransferLimit;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 	}
 	
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return ((double)this.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
+		return ((double)FreezerCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
 	}
 	
 	public boolean showDurabilityBar(ItemStack stack, World world, EntityPlayer player) {
