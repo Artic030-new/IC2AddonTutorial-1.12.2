@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import ru.artic030.mod02.items.Dehydrator;
-import ru.artic030.mod02.items.FreezerCannon;
 import ru.artic030.mod02.items.ItemEmeraldDrill;
 
 public enum IC2ToolsLoader {

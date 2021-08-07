@@ -1,17 +1,11 @@
 package ru.artic030.mod02.items;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -27,8 +21,8 @@ public class ElectricPotion extends Item implements IElectricItem {
 
 	public static int maxCharge = 1000000;
 	public static byte tier = 3;
-	public static short TransferLimit = 128;
-	public static short preUse = 300;
+	public static short TransferLimit = 512;
+	public static int preUse = 100000;
 	public static int mode = 0;
 	
 	private Map<Integer, String> supportedEffects = new HashMap<Integer, String>();

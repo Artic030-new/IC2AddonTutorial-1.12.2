@@ -7,7 +7,6 @@ import ic2.core.IC2;
 import ic2.core.item.reactor.ItemReactorUranium;
 import ic2.core.item.type.NuclearResourceType;
 import ic2.core.ref.ItemName;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import ru.artic030.mod02.load.ItemLoader;
 

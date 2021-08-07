@@ -3,10 +3,8 @@ package ru.artic030.mod02.items;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -41,17 +39,17 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 
 	@Override
 	public double getMaxCharge(ItemStack stack) {
-		return this.maxCharge;
+		return EnderCannon.maxCharge;
 	}
 
 	@Override
 	public int getTier(ItemStack stack) {
-		return this.tier;
+		return EnderCannon.tier;
 	}
 
 	@Override
 	public double getTransferLimit(ItemStack stack) {
-		return this.TransferLimit;
+		return EnderCannon.TransferLimit;
 	}
 
 	@Override
@@ -60,7 +58,7 @@ public class EnderCannon extends Item implements IHasModel, IElectricItem {
 	}
 	
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return ((double)EnderCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
+		return ((double)EnderCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) EnderCannon.maxCharge;
 	}
 	
 	public boolean showDurabilityBar(ItemStack stack, World world, EntityPlayer player) {

@@ -1,12 +1,9 @@
 package ru.artic030.mod02.items;
 
 import ic2.api.reactor.IReactor;
-import ic2.api.reactor.IReactorComponent;
 import ic2.core.IC2;
 import ic2.core.item.reactor.AbstractReactorComponent;
 import ic2.core.ref.ItemName;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import ru.artic030.mod02.load.ItemLoader;
 

@@ -1,6 +1,5 @@
 package ru.artic030.mod02.load;
 
-
 import ic2.core.block.ITeBlock;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.ref.TeBlock.DefaultDrop;
@@ -13,7 +12,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import ru.artic030.mod02.Mod02;
 
 public enum MachineTEs implements ITeBlock {

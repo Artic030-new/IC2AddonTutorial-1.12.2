@@ -1,20 +1,17 @@
 package ru.artic030.mod02.load;
 
+import java.util.Set;
+
 import ic2.core.block.ITeBlock;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.ref.TeBlock.DefaultDrop;
 import ic2.core.ref.TeBlock.HarvestTool;
 import ic2.core.util.Util;
-import java.util.Set;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.EnumFaceDirection;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import ru.artic030.mod02.Mod02;
 import ru.artic030.mod02.machines.DigitalGeneratorTE;
 

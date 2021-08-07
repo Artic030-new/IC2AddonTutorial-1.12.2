@@ -3,7 +3,6 @@ package ru.artic030.mod02.items;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.Item;
@@ -58,7 +57,7 @@ public class FreezerCannon extends Item implements IHasModel, IElectricItem {
 	}
 	
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return ((double)FreezerCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) this.maxCharge;
+		return ((double)FreezerCannon.maxCharge  - (double)ElectricItem.manager.getCharge(stack)) / (double) FreezerCannon.maxCharge;
 	}
 	
 	public boolean showDurabilityBar(ItemStack stack, World world, EntityPlayer player) {

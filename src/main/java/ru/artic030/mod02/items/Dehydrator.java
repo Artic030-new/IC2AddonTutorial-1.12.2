@@ -1,10 +1,6 @@
 package ru.artic030.mod02.items;
 
-
 import java.util.EnumSet;
-import java.util.IdentityHashMap;
-import java.util.Map;
-
 import ic2.api.item.ElectricItem;
 import ic2.core.IC2;
 import ic2.core.audio.PositionSpec;
@@ -13,14 +9,10 @@ import ic2.core.item.tool.HarvestLevel;
 import ic2.core.item.tool.ItemElectricTool;
 import ic2.core.item.tool.ToolClass;
 import ic2.core.ref.ItemName;
-import ic2.core.util.StackUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
