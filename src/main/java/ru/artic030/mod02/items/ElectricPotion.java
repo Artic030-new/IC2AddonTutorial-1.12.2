@@ -31,17 +31,18 @@ public class ElectricPotion extends Item implements IElectricItem {
 	public static short preUse = 300;
 	public static int mode = 0;
 	
-	private Map<Integer, PotionEffect> supportedEffects = new HashMap<Integer, PotionEffect>();
+	private Map<Integer, String> supportedEffects = new HashMap<Integer, String>();
 	
 	public ElectricPotion(String name) {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		this.setCreativeTab(IC2.tabIC2);
 		this.setMaxDamage(27);
-		supportedEffects.put(0, new PotionEffect(Potion.getPotionById(19)));
-		supportedEffects.put(1, new PotionEffect(Potion.getPotionById(19)));
-		supportedEffects.put(2, new PotionEffect(Potion.getPotionById(19)));
-		supportedEffects.put(3, new PotionEffect(Potion.getPotionById(19)));
+		supportedEffects.put(0, "Скорость");
+		supportedEffects.put(1, "Сила");
+		supportedEffects.put(2, "Восстановление");
+		supportedEffects.put(3, "Прыгучесть");
+		supportedEffects.put(4, "Невидимость");
 		ItemLoader.ITEMS.add(this);
 	}
 	
@@ -75,19 +76,26 @@ public class ElectricPotion extends Item implements IElectricItem {
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		if(ElectricItem.manager.getCharge(stack) >= ElectricPotion.preUse) {
 			if((!world.isRemote) && (IC2.keyboard.isModeSwitchKeyDown(player))) {
-				if(mode <= supportedEffects.size()) {
+				if(mode <= supportedEffects.size() - 2) {
 					mode++;
 					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse / 100, tier, true, false, false);	
+					player.sendMessage(new TextComponentString("Режим зелья: " + supportedEffects.get(mode) + " активирован."));
 				} else {
 					mode = 0;
 					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse / 100, tier, true, false, false);
+					player.sendMessage(new TextComponentString("Режим зелья: " + supportedEffects.get(mode) + " активирован."));
 				}
 		} else {
 			if(!world.isRemote) {
 				switch(mode) {
-					case 0: player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0)); break;
-					case 1: 
+					case 0: player.addPotionEffect(new PotionEffect(Potion.getPotionById(1), 1000, 0)); break;
+					case 1: player.addPotionEffect(new PotionEffect(Potion.getPotionById(5), 1000, 0)); break;
+					case 2: player.addPotionEffect(new PotionEffect(Potion.getPotionById(6), 1000, 0)); break;
+					case 3: player.addPotionEffect(new PotionEffect(Potion.getPotionById(8), 1000, 0)); break;
+					case 4: player.addPotionEffect(new PotionEffect(Potion.getPotionById(14), 1000, 0)); break;
+					default: break;
 				}
+				ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);	
 			} 
 			player.getCooldownTracker().setCooldown(stack.getItem(), 400);
 		}
