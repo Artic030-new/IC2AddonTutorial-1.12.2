@@ -1,5 +1,6 @@
 package ru.artic030.mod02.machines;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 import ic2.api.upgrade.IUpgradableBlock;
@@ -9,10 +10,14 @@ import ic2.core.IHasGui;
 import ic2.core.block.TileEntityInventory;
 import ic2.core.block.comp.Fluids;
 import ic2.core.block.invslot.InvSlotUpgrade;
+import ic2.core.gui.dynamic.DynamicContainer;
+import ic2.core.gui.dynamic.DynamicGui;
+import ic2.core.gui.dynamic.GuiParser;
 import ic2.core.network.GuiSynced;
 import ic2.core.util.Util;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidTank;
@@ -29,6 +34,11 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 	         return this.fluidTank.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank.getFluidAmount() / (float)this.fluidTank.getCapacity());
 	      });
 	   }
+	
+	public void updateEntityServer() {
+		super.updateEntityServer();
+		this.upgradeSlots.tick();
+	}
 	
 	@Override
 	public int getSizeInventory() {
@@ -137,17 +147,17 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 
 	@Override
 	public Set<UpgradableProperty> getUpgradableProperties() {
-		return null;
+		return EnumSet.of(UpgradableProperty.FluidConsuming, UpgradableProperty.FluidProducing);
 	}
 
 	@Override
-	public GuiScreen getGui(EntityPlayer arg0, boolean arg1) {
-		return null;
+	public GuiScreen getGui(EntityPlayer p, boolean arg1) {
+		return DynamicGui.create((IInventory)this, p, GuiParser.parse(this.teBlock));
 	}
 
 	@Override
-	public ContainerBase<?> getGuiContainer(EntityPlayer arg0) {
-		return null;
+	public ContainerBase<?> getGuiContainer(EntityPlayer p) {
+		return DynamicContainer.create(this, p, GuiParser.parse(this.teBlock));
 	}
 
 	@Override
