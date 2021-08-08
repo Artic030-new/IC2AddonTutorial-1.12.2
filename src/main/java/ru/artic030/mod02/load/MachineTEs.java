@@ -16,7 +16,8 @@ import ru.artic030.mod02.Mod02;
 
 public enum MachineTEs implements ITeBlock {
 	
-   electric_centrifuge(ru.artic030.mod02.machines.TileEntityCentrifuge.class, 0);
+   electric_centrifuge(ru.artic030.mod02.machines.TileEntityCentrifuge.class, 0),
+   digital_tank(ru.artic030.mod02.machines.DigitalFluidTank.class, 1);
 
    private final Class<? extends TileEntityBlock> teClass;
    private final int itemMeta;
