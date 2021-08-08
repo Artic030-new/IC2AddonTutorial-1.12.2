@@ -15,6 +15,8 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import ru.artic030.mod02.load.GeneratorsTE;
 import ru.artic030.mod02.load.IC2ToolsLoader;
@@ -48,6 +50,16 @@ public class Mod02 {
 	
 	@Mod.EventHandler
 	public void start(FMLConstructionEvent event) {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@Mod.EventHandler
+	public void serverStart(FMLServerStartingEvent event) {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@Mod.EventHandler
+	public void serverStop(FMLServerStoppingEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	

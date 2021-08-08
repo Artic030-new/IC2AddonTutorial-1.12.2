@@ -52,9 +52,8 @@ public class TileEntityTestMachine extends TileEntityElectricMachine implements 
 	@GuiSynced public int progress;
 	
 	public TileEntityTestMachine(int tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet) {
-	      this(tier, recipeSet, 1, 25);
-	   }
-
+		this(tier, recipeSet, 1, 25);
+	}
 
 	public TileEntityTestMachine(int tier, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ItemStack> recipeSet, int idleEU, int activeEU) {
 		super(6000, 1);

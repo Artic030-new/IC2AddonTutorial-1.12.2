@@ -70,13 +70,8 @@ public class Recipies {
 		 
 		 NBTTagCompound nbt12 = new NBTTagCompound();
 		 nbt12.setInteger("amplification", 60000);
-		 addMatterAmplification(input.forStack(apple), amps[0], nbt12);
-		 addMatterAmplification(input.forStack(goldapple), amps[1], nbt12);
-		 addMatterAmplification(input.forStack(diamond), amps[2], nbt12);
-		 addMatterAmplification(input.forStack(plutonium), amps[3], nbt12);
-		 addMatterAmplification(input.forStack(iridium), amps[4], nbt12);
-		 addMatterAmplification(input.forStack(star), amps[5], nbt12);
-
+		 for (int i = 0; i < amps.length; i++) 
+			 addMatterAmplification(input.forStack(apple), amps[i], nbt12);
 		 claydustx2.setCount(2);
 		 stonedust.setCount(3);
 		 addCompressorRecipe(input.forStack(new ItemStack(Items.SLIME_BALL, 9)), new ItemStack(slime));
@@ -136,7 +131,6 @@ public class Recipies {
 	 
 	public static void addMedOreWashingRecipe(IRecipeInput input, ItemStack output, ItemStack output2, NBTTagCompound nbt2) {
 		ic2.api.recipe.Recipes.oreWashing.addRecipe(input, (NBTTagCompound)nbt2, false, new ItemStack[] {output, output2});
-
 	}
 	
 	public static void addAdvOreWashingRecipe(IRecipeInput input, ItemStack output, ItemStack output2, ItemStack output3, NBTTagCompound nbt2) {
