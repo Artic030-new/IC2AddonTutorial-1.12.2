@@ -96,7 +96,7 @@ public class DigitalArmor extends ItemArmorElectric implements IJetpack, IItemHu
 	      switch(this.armorType) {
 	      case HEAD:
 	         if (ElectricItem.manager.canUse(stack, 1000.0D)) {
-	            player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 100, 0));
+	            player.addPotionEffect(new PotionEffect(Potion.getPotionById(1), 100, 0));
 	            ElectricItem.manager.use(stack, 1000.0D, (EntityLivingBase)null);
 	            ret = true;
 	         } 

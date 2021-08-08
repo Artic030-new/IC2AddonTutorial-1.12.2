@@ -54,7 +54,7 @@ public class Mod02 {
 	@SubscribeEvent
 	public void register(TeBlockFinalCallEvent event) {
 		TeBlockRegistry.addAll(GeneratorsTE.class, GeneratorsTE.LOCATION);
-		TeBlockRegistry.addAll(MachineTEs.class, MachineTEs.IDENTITY);
+		TeBlockRegistry.addAll(MachineTEs.class, MachineTEs.LOCATION);
 	}
 	
 	@EventHandler

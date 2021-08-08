@@ -21,7 +21,7 @@ public enum MachineTEs implements ITeBlock {
    private final Class<? extends TileEntityBlock> teClass;
    private final int itemMeta;
    private TileEntityBlock dummyTe;
-   public static final ResourceLocation IDENTITY = new ResourceLocation("mod02", "machines");
+   public static final ResourceLocation LOCATION = new ResourceLocation("mod02", "machines");
 
    private MachineTEs(Class<? extends TileEntityBlock> teClass, int itemMeta) {
       this.teClass = teClass;
@@ -41,7 +41,7 @@ public enum MachineTEs implements ITeBlock {
    }
 
    public ResourceLocation getIdentifier() {
-      return IDENTITY;
+      return LOCATION;
    }
 
    public Class<? extends TileEntityBlock> getTeClass() {
