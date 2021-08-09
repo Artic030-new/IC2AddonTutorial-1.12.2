@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui width="176" height="166">
     <text y="6" align="center">{mod02.gui.digital_tank.title}</text>
+    
+    <fluidslot x="59" y="25" name="fluid3"/>
+    
     <fluidslot x="79" y="35" name="fluid"/>
-    <fluidslot x="79" y="45" name="fluid2"/>
+    <fluidslot x="79" y="55" name="fluid2"/>
+    
+    <fluidslot x="99" y="35" name="fluid4"/>
     <playerInventory x="7" y="83"/>
 </gui>
