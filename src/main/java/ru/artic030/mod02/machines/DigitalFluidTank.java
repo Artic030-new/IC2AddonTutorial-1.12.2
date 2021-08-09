@@ -35,11 +35,20 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 	public DigitalFluidTank() {
 	      this.fluidTank = this.fluids.addTank("fluid", 1000000);
 	      this.fluidTank2 = this.fluids.addTank("fluid2", 1000000);
+	      this.fluidTank3 = this.fluids.addTank("fluid3", 1000000);
+	      this.fluidTank4 = this.fluids.addTank("fluid4", 1000000);
+	      
 	      this.comparator.setUpdate(() -> {
 	         return this.fluidTank.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank.getFluidAmount() / (float)this.fluidTank.getCapacity());
 	      });
 	      this.comparator.setUpdate(() -> {
 		         return this.fluidTank2.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank2.getFluidAmount() / (float)this.fluidTank2.getCapacity());
+		      });
+	      this.comparator.setUpdate(() -> {
+		         return this.fluidTank3.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank3.getFluidAmount() / (float)this.fluidTank3.getCapacity());
+		      });
+	      this.comparator.setUpdate(() -> {
+		         return this.fluidTank4.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank4.getFluidAmount() / (float)this.fluidTank4.getCapacity());
 		      });
 	   }
 	
