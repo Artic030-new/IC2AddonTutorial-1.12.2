@@ -82,7 +82,7 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer player) {
-		return false;
+		return true;
 	}
 
 	@Override
