@@ -3,10 +3,10 @@
     <text y="6" align="center">{mod02.gui.digital_tank.title}</text>
     
     <fluidslot x="59" y="35" name="fluid3"/>
-    
     <fluidslot x="79" y="35" name="fluid"/>
     <fluidslot x="79" y="55" name="fluid2"/>
-    
     <fluidslot x="99" y="35" name="fluid4"/>
+    
+    <slotgrid name="upgrade" x="151" y="25" cols="1"/>
     <playerInventory x="7" y="83"/>
 </gui>

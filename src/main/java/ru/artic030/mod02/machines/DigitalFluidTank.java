@@ -29,7 +29,7 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 	@GuiSynced protected final FluidTank fluidTank2;
 	@GuiSynced protected final FluidTank fluidTank3;
 	@GuiSynced protected final FluidTank fluidTank4;
-
+	public final InvSlotUpgrade upgradeSlot;
 	
 	protected final Fluids fluids = (Fluids)this.addComponent(new Fluids(this));
 	public DigitalFluidTank() {
@@ -37,7 +37,7 @@ public class DigitalFluidTank extends TileEntityInventory implements IHasGui, IU
 	      this.fluidTank2 = this.fluids.addTank("fluid2", 1000000);
 	      this.fluidTank3 = this.fluids.addTank("fluid3", 1000000);
 	      this.fluidTank4 = this.fluids.addTank("fluid4", 1000000);
-	      
+	      this.upgradeSlot  = new InvSlotUpgrade(this, "upgrade", 2);
 	      this.comparator.setUpdate(() -> {
 	         return this.fluidTank.getFluidAmount() == 0 ? 0 : (int)Util.lerp(1.0F, 15.0F, (float)this.fluidTank.getFluidAmount() / (float)this.fluidTank.getCapacity());
 	      });
