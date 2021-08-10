@@ -14,6 +14,7 @@ import ic2.core.IHasGui;
 import ic2.core.block.TileEntityInventory;
 import ic2.core.block.comp.Redstone;
 import ic2.core.block.comp.Redstone.IRedstoneChangeHandler;
+import ic2.core.block.machine.tileentity.TileEntityElectricMachine;
 import ic2.core.gui.dynamic.DynamicContainer;
 import ic2.core.gui.dynamic.GuiParser;
 import ic2.core.init.Localization;
@@ -122,7 +123,7 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
       tooltip.add(Localization.translate("ic2.item.tooltip.PowerTier", new Object[]{"Variable"}));
    }
    @Override
-   public ContainerBase getGuiContainer(EntityPlayer player) {
+   public ContainerBase<? extends TileEntityInventory> getGuiContainer(EntityPlayer player) {
       return DynamicContainer.create(this, player, GuiParser.parse(this.teBlock));
    }
    @Override
