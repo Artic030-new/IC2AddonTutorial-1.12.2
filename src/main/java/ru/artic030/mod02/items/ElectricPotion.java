@@ -13,6 +13,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import ru.artic030.mod02.load.ItemLoader;
@@ -79,6 +80,13 @@ public class ElectricPotion extends Item implements IElectricItem {
 					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse / 100, tier, true, false, false);
 					player.sendMessage(new TextComponentString("Режим зелья: " + supportedEffects.get(mode) + " активирован."));
 				}
+			} else if((!world.isRemote) && (IC2.keyboard.isAltKeyDown(player))) {
+				if(!player.isCreative()) {
+					FoodStats food = player.getFoodStats();
+					food.setFoodLevel(food.getFoodLevel() - 2);
+					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);	
+					player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+				}				
 		} else {
 			if(!world.isRemote) {
 				switch(mode) {
