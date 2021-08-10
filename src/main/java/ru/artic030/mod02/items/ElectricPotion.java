@@ -83,9 +83,11 @@ public class ElectricPotion extends Item implements IElectricItem {
 			} else if((!world.isRemote) && (IC2.keyboard.isAltKeyDown(player))) {
 				if(!player.isCreative()) {
 					FoodStats food = player.getFoodStats();
-					food.setFoodLevel(food.getFoodLevel() - 2);
-					ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);	
-					player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+					if(food.needFood()) {
+						food.setFoodLevel(food.getFoodLevel() + 2);
+						ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);	
+						player.getCooldownTracker().setCooldown(stack.getItem(), 400);
+					} else return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 				}				
 		} else {
 			if(!world.isRemote) {
