@@ -43,25 +43,21 @@ public class ElectricPotion extends Item implements IElectricItem {
 	
 	@Override
 	public boolean canProvideEnergy(ItemStack stack) {
-
 		return false;
 	}
 
 	@Override
 	public double getMaxCharge(ItemStack stack) {
-
 		return maxCharge;
 	}
 
 	@Override
 	public int getTier(ItemStack stack) {
-
 		return tier;
 	}
 
 	@Override
 	public double getTransferLimit(ItemStack stack) {
-
 		return TransferLimit;
 	}
 	
@@ -83,7 +79,7 @@ public class ElectricPotion extends Item implements IElectricItem {
 			} else if((!world.isRemote) && (IC2.keyboard.isAltKeyDown(player))) {
 				if(!player.isCreative()) {
 					FoodStats food = player.getFoodStats();
-					if(food.needFood()) {
+					if(food.needFood() && ElectricItem.manager.getCharge(stack) >= ElectricPotion.preUse) {
 						food.setFoodLevel(food.getFoodLevel() + 2);
 						ElectricItem.manager.discharge(stack, --ElectricPotion.preUse, tier, true, false, false);	
 						player.getCooldownTracker().setCooldown(stack.getItem(), 400);
