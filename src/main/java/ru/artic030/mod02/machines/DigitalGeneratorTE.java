@@ -48,34 +48,34 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 			}
 		});
 	   }
-	
+	@Override
 	protected void onLoaded() {
 		super.onLoaded();
 		if (!this.world.isRemote) {
 			this.addedToEnet = !MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 		}
 	}
-
+	@Override
 	protected void onUnloaded() {
 		super.onUnloaded();
 		if (this.addedToEnet) {
 			this.addedToEnet = MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 		}
 	}
-
+	@Override
    public void readFromNBT(NBTTagCompound nbt) {
       super.readFromNBT(nbt);
       this.generation = nbt.getInteger("production");
       this.tier = nbt.getInteger("tier");
    }
-
+	@Override
    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
       super.writeToNBT(nbt);
       nbt.setInteger("production", this.generation);
       nbt.setInteger("tier", this.tier);
       return nbt;
    }
-
+	@Override
    public void onPlaced(ItemStack stack, EntityLivingBase placer, EnumFacing facing) {
       super.onPlaced(stack, placer, facing);
       if (!this.world.isRemote) {
@@ -115,17 +115,17 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
    public int getMultipleEnergyPacketAmount() {
       return (int)Math.round((double)this.generation);
    }
-
+   @Override
    @SideOnly(Side.CLIENT)
    public void addInformation(ItemStack stack, List<String> tooltip, ITooltipFlag advanced) {
       super.addInformation(stack, tooltip, advanced);
       tooltip.add(Localization.translate("ic2.item.tooltip.PowerTier", new Object[]{"Variable"}));
    }
-
+   @Override
    public ContainerBase getGuiContainer(EntityPlayer player) {
       return DynamicContainer.create(this, player, GuiParser.parse(this.teBlock));
    }
-
+   @Override
    @SideOnly(Side.CLIENT)
    public GuiScreen getGui(EntityPlayer player, boolean isAdmin) {
       return BackgroundlessDynamicGUI.create(this, player, GuiParser.parse(this.teBlock));
