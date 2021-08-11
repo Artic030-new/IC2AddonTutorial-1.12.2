@@ -101,11 +101,18 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	  } else if ( (!this.world.isDaytime() ) && yPos == 5 ) {
 		  return this.generation;
 	  } else if ( (!this.world.isDaytime() ) && yPos >= 6 ) {
+		  this.generation -= 1;
 		  return this.generation - 1;
 	  } else if ( (!this.world.isDaytime() ) && yPos == 4 ) {
+		  this.generation += 3;
 		  return this.generation + 3;
 	  }
-	  	return 0;	
+	  else return 0;	
+   }
+   
+   public String getMaxOutput()
+   {
+     return String.format("%s %.0f", new Object[] { Localization.translate("mod02.gui.digital_generator.produsing"), (double)this.generation });
    }
 
    public void drawEnergy(double amount) {}

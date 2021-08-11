@@ -6,3 +6,4 @@ some.item=Какой-то предмет
 mod02.gui.electric_centrifuge.title=Электроцентрифуга
 mod02.gui.digital_tank.title=Цифровой резервуар
 mod02.gui.digital_generator.title=Цифровой генератор
+mod02.gui.digital_generator.produsing=Мощность: 

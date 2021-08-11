@@ -6,3 +6,4 @@ some.item=Some Item
 mod02.gui.electric_centrifuge.title=Electric Centrifuge
 mod02.gui.digital_tank.title=Digital Tank
 mod02.gui.digital_generator.title=Digital Generator
+mod02.gui.digital_generator.produsing=Power: 
