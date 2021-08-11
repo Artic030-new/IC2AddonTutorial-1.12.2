@@ -82,7 +82,11 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	protected void updateEntityServer() {
 	      super.updateEntityServer();
 	      currentOutput++;
-	   }
+	}
+	
+	public double getCurrentOutput() {
+		return DigitalGeneratorTE.currentOutput;
+	}
 	
 	@Override
 	public void onPlaced(ItemStack stack, EntityLivingBase placer, EnumFacing facing) {
