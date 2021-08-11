@@ -40,7 +40,7 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	@GuiSynced
 	public int generation;
 	@GuiSynced
-	public int currentOutput;
+	public static int currentOutput;
 	public DigitalGeneratorTE() {
 		this.generation = 4;
 		this.tier = 1;
@@ -78,8 +78,14 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
       nbt.setInteger("tier", this.tier);
       return nbt;
    }
+	
+	protected void updateEntityServer() {
+	      super.updateEntityServer();
+	      currentOutput++;
+	   }
+	
 	@Override
-   public void onPlaced(ItemStack stack, EntityLivingBase placer, EnumFacing facing) {
+	public void onPlaced(ItemStack stack, EntityLivingBase placer, EnumFacing facing) {
       super.onPlaced(stack, placer, facing);
       if (!this.world.isRemote) {
          this.setActive(true);
