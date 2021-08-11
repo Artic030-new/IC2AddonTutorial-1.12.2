@@ -95,6 +95,7 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 
    public double getOfferedEnergy() {
 	 int yPos = this.pos.getY();
+	 
 	 if(yPos >=8) {
 		  return 0;
 	  } else if ( (!this.world.isDaytime() ) && yPos == 5 ) {
