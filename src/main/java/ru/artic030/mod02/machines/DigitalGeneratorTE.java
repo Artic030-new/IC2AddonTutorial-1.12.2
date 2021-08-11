@@ -39,6 +39,8 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	private boolean addedToEnet;
 	@GuiSynced
 	public int generation;
+	@GuiSynced
+	public int currentOutput;
 	public DigitalGeneratorTE() {
 		this.generation = 4;
 		this.tier = 1;
@@ -99,12 +101,13 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	 if(yPos >=8) {
 		  return 0;
 	  } else if ( (!this.world.isDaytime() ) && yPos == 5 ) {
+		  currentOutput = this.generation;
 		  return this.generation;
 	  } else if ( (!this.world.isDaytime() ) && yPos >= 6 ) {
-		  this.generation -= 1;
+		  currentOutput = this.generation - 1;
 		  return this.generation - 1;
 	  } else if ( (!this.world.isDaytime() ) && yPos == 4 ) {
-		  this.generation += 3;
+		  currentOutput =  this.generation + 3;
 		  return this.generation + 3;
 	  }
 	  else return 0;	
@@ -112,7 +115,7 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
    
    public String getMaxOutput()
    {
-     return String.format("%s %.0f", new Object[] { Localization.translate("mod02.gui.digital_generator.produsing"), (double)this.generation });
+     return String.format("%s %.0f", new Object[] { Localization.translate("mod02.gui.digital_generator.produsing"), (double)this.getMultipleEnergyPacketAmount() });
    }
 
    public void drawEnergy(double amount) {}

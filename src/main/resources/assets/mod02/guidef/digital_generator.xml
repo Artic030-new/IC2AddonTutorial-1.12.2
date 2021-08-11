@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gui width="176" height="166">
     <text y="6" align="center">{mod02.gui.digital_generator.title}</text>
-    <text x="50" y="32" color="13487565">%base.generation%</text>
+    <text x="50" y="32" color="13487565">%base.currentOutput%</text>
     <playerInventory x="7" y="83"/>	
 </gui>
