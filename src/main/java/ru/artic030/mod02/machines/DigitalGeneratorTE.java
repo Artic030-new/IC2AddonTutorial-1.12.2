@@ -82,6 +82,9 @@ public class DigitalGeneratorTE extends TileEntityInventory implements IMultiEne
 	protected void updateEntityServer() {
 	      super.updateEntityServer();
 	      currentOutput++;
+	      if(currentOutput > 99)
+	    	  currentOutput = 0;
+	      
 	}
 	
 	public double getCurrentOutput() {
